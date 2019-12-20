@@ -1,0 +1,51 @@
+{
+  "version": "2.0",
+  "app_name": "aws-cdk-sam-chalice",
+  "stages": {
+    "dev": {
+      "api_gateway_stage": "api"
+    },
+    "WebApiDev": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.34]}",
+          "environment_variables": {
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.16]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "WebApiProdEuWest1": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.79]}",
+          "environment_variables": {
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.61]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "WebApiProdUsEast1": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.124]}",
+          "environment_variables": {
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.106]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    }
+  }
+}
