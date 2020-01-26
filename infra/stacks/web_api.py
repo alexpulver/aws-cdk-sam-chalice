@@ -24,8 +24,11 @@ class WebApi(cdk.Stack):
         cdk.CfnOutput(self, 'UsersTableName', value=self.dynamodb_table.table_name)
 
         lambda_service_principal = iam.ServicePrincipal('lambda.amazonaws.com')
-        self.api_handler_iam_role = iam.Role(self, 'ApiHandlerLambdaRole',
-                                             assumed_by=lambda_service_principal)
+        cloudwatch_logs_policy = iam.ManagedPolicy.from_aws_managed_policy_name(
+            'service-role/AWSLambdaBasicExecutionRole')
+        self.api_handler_iam_role = iam.Role(
+            self, 'ApiHandlerLambdaRole', assumed_by=lambda_service_principal,
+            managed_policies=[cloudwatch_logs_policy])
 
         self.dynamodb_table.grant_read_write_data(self.api_handler_iam_role)
 
