@@ -5,7 +5,7 @@ from aws_cdk import (
     aws_iam as iam,
     core as cdk
 )
-from cdk_chalice import Chalice
+from cdk_chalice import Chalice, PackageConfig
 
 
 class WebApi(cdk.Stack):
@@ -16,8 +16,8 @@ class WebApi(cdk.Stack):
     def __init__(self, scope: cdk.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        partition_key = dynamodb.Attribute(name='username',
-                                           type=dynamodb.AttributeType.STRING)
+        partition_key = dynamodb.Attribute(
+            name='username', type=dynamodb.AttributeType.STRING)
         self.dynamodb_table = dynamodb.Table(
             self, 'UsersTable', partition_key=partition_key,
             removal_policy=cdk.RemovalPolicy.DESTROY)
@@ -32,11 +32,15 @@ class WebApi(cdk.Stack):
 
         self.dynamodb_table.grant_read_write_data(self.api_handler_iam_role)
 
-        web_api_source_dir = os.path.join(os.path.dirname(__file__), os.pardir,
-                                          os.pardir, 'web-api')
+        runtime_source_dir = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, 'runtime')
         chalice_stage_config = self._create_chalice_stage_config()
-        self.chalice = Chalice(self, 'WebApi', source_dir=web_api_source_dir,
-                               stage_config=chalice_stage_config)
+        package_config = PackageConfig(use_container=True)
+        self.chalice = Chalice(
+            self, 'WebApi', source_dir=runtime_source_dir,
+            stage_config=chalice_stage_config, package_config=package_config)
+        rest_api = self.chalice.sam_template.get_resource('RestAPI')
+        rest_api.tracing_enabled = True
 
     def _create_chalice_stage_config(self):
         chalice_stage_config = {

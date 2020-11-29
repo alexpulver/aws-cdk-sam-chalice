@@ -1,6 +1,9 @@
 # PyCharm files
 .idea/
 
+# pyenv
+.python-version
+
 # macOS files
 .DS_Store
 
@@ -8,12 +11,12 @@
 .venv/
 
 # AWS Chalice files
-infra/chalice.out/
-web-api/.chalice/deployed/
-web-api/.chalice/deployments/
+infrastructure/chalice.out/
+runtime/.chalice/deployed/
+runtime/.chalice/deployments/
 
 # AWS CDK files
-infra/cdk.out/
+infrastructure/cdk.out/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
