@@ -11,12 +11,12 @@
 .venv/
 
 # AWS Chalice files
-infrastructure/chalice.out/
-runtime/.chalice/deployed/
-runtime/.chalice/deployments/
+chalice.out/
+functions/.chalice/deployed/
+functions/.chalice/deployments/
 
 # AWS CDK files
-infrastructure/cdk.out/
+cdk.out/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

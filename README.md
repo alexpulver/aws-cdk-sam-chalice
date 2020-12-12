@@ -23,14 +23,9 @@ git clone -b future https://github.com/alexpulver/aws-cdk-sam-chalice
 cd aws-cdk-sam-chalice
 
 # Create Python virtual environment and install the dependencies
-python3 -m venv .venv/runtime
-source .venv/runtime/bin/activate
-pip install -r runtime/requirements.txt
-deactivate
-
-python3 -m venv .venv/infrastructure
-source .venv/infrastructure/bin/activate
-pip install -r infrastructuture/requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-all.txt
 ```
 
 #### Synthesize and deploy development stack
@@ -38,7 +33,6 @@ pip install -r infrastructuture/requirements.txt
 The `WebApiDev` stack uses your current AWS profile account and credentials.
 
 ```bash
-cd infrastructure
 cdk synth
 cdk deploy WebApiDev
 ```
