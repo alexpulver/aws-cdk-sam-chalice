@@ -10,9 +10,9 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.87]}",
+          "iam_role_arn": "${Token[TOKEN.89]}",
           "environment_variables": {
-            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.77]}"
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.79]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
@@ -24,9 +24,9 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.139]}",
+          "iam_role_arn": "${Token[TOKEN.141]}",
           "environment_variables": {
-            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.129]}"
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.131]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
@@ -38,9 +38,9 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.191]}",
+          "iam_role_arn": "${Token[TOKEN.193]}",
           "environment_variables": {
-            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.181]}"
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.183]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10

@@ -12,7 +12,7 @@ class WebApi(cdk.Stack):
 
     _API_HANDLER_LAMBDA_MEMORY_SIZE = 128
     _API_HANDLER_LAMBDA_TIMEOUT = 10
-    _CHALICE_SOURCE_DIR = os.path.join(os.path.dirname(__file__), os.pardir, 'functions')
+    _CHALICE_SOURCE_DIR = os.path.join(os.path.dirname(__file__), os.pardir, 'runtime')
 
     def __init__(self, scope: cdk.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)

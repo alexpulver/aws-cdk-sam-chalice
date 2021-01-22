@@ -25,7 +25,8 @@ cd aws-cdk-sam-chalice
 # Create Python virtual environment and install the dependencies
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements-all.txt
+pip install pip-tools
+pip-sync runtime/requirements.txt requirements.txt requirements-dev.txt
 ```
 
 #### Synthesize and deploy development stack

@@ -2,7 +2,7 @@ import os
 
 from aws_cdk import core as cdk
 
-from stacks.web_api import WebApi
+from infrastructure.web_api import WebApi
 
 
 app = cdk.App()
