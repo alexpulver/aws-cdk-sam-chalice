@@ -1,13 +1,12 @@
 # Example project for working with AWS CDK, AWS SAM and AWS Chalice
 
-This project shows how AWS CDK, AWS SAM and AWS Chalice can be used
+This project shows how AWS CDK and AWS Chalice can be used
 together to deliver a service using CDK for building the broader service
-infrastructure, Chalice as developer-friendly Python serverless 
-microframework and SAM as integration point between the two.
+infrastructure, and Chalice as developer-friendly Python serverless 
+microframework.
 
-The service is based on Amazon API Gateway and AWS Lambda. 
-The web API provides basic CRUD operations for managing users in a 
-DynamoDB table.
+The service being built is based on Amazon API Gateway and AWS Lambda, 
+and provides basic CRUD operations for managing users in a DynamoDB table.
 
 #### Setting up development environment
 
@@ -26,6 +25,12 @@ cd aws-cdk-sam-chalice
 python3 -m venv .venv
 source .venv/bin/activate
 pip install pip-tools
+pip-sync runtime/requirements.txt requirements.txt requirements-dev.txt
+
+## Upgrading dependencies (ordered by constraints)
+pip-compile --upgrade runtime/requirements.in
+pip-compile --upgrade requirements.in
+pip-compile --upgrade requirements-dev.in
 pip-sync runtime/requirements.txt requirements.txt requirements-dev.txt
 ```
 
