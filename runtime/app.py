@@ -6,7 +6,7 @@ from chalicelib.dynamodb_users_database import DynamoDbUsersDatabase
 from chalicelib.users import Users
 
 
-app = Chalice(app_name='aws-cdk-sam-chalice-web_api')
+app = Chalice(app_name='aws-cdk-sam-chalice')
 dynamodb_users_database = DynamoDbUsersDatabase(os.environ['DYNAMODB_TABLE_NAME'])
 users = Users(dynamodb_users_database)
 

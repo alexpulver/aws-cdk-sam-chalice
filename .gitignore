@@ -12,8 +12,8 @@
 
 # AWS Chalice files
 chalice.out/
-runtime/web_api/.chalice/deployed/
-runtime/web_api/.chalice/deployments/
+runtime/.chalice/deployed/
+runtime/.chalice/deployments/
 
 # AWS CDK files
 cdk.out/

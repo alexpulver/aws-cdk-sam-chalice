@@ -1,7 +1,7 @@
 import unittest
 
 
-class DynamoDbUsersDatabaseTestCase(unittest.TestCase):
+class AwsCdkSamChaliceTestCase(unittest.TestCase):
     def test_something(self):
         self.assertEqual(True, False)
 

@@ -1,7 +1,7 @@
 import unittest
 
 
-class WebApiTestCase(unittest.TestCase):
+class UsersTestCase(unittest.TestCase):
     def test_something(self):
         self.assertEqual(True, False)
 

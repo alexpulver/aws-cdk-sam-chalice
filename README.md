@@ -36,27 +36,27 @@ pip-sync runtime/requirements.txt requirements.txt requirements-dev.txt
 
 #### Synthesize and deploy development stack
 
-The `WebApiDev` stack uses your current AWS profile account and credentials.
+The `AwsCdkSamChaliceDev` stack uses your current AWS profile account and credentials.
 
 ```bash
 cdk synth
-cdk deploy WebApiDev
+cdk deploy AwsCdkSamChaliceDev
 ```
 
 Example output for `cdk deploy ...`:
 
 ```text
-WebApiDev.UsersTableName = WebApiDev-UsersTable9725E9C8-BTQT7EIOV1UC
-WebApiDev.APIHandlerArn = arn:aws:lambda:eu-west-1:123456789012:function:WebApiDev-APIHandler-13LVIC507UIAN
-WebApiDev.APIHandlerName = WebApiDev-APIHandler-13LVIC507UIAN
-WebApiDev.RestAPIId = letbml5594
-WebApiDev.EndpointURL = https://letbml5594.execute-api.eu-west-1.amazonaws.com/v1/
+AwsCdkSamChaliceDev.UsersTableName = AwsCdkSamChaliceDev-UsersTable9725E9C8-BTQT7EIOV1UC
+AwsCdkSamChaliceDev.APIHandlerArn = arn:aws:lambda:eu-west-1:123456789012:function:AwsCdkSamChaliceDev-APIHandler-13LVIC507UIAN
+AwsCdkSamChaliceDev.APIHandlerName = AwsCdkSamChaliceDev-APIHandler-13LVIC507UIAN
+AwsCdkSamChaliceDev.RestAPIId = letbml5594
+AwsCdkSamChaliceDev.EndpointURL = https://letbml5594.execute-api.eu-west-1.amazonaws.com/v1/
 ```
 
 **Do not forget to delete the stack once done with testing to avoid unexpected
 charges:**
 ```bash
-cdk destroy WebApiDev
+cdk destroy AwsCdkSamChaliceDev
 ```
 
 #### Testing the web API

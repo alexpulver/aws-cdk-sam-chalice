@@ -1,11 +1,11 @@
 {
   "version": "2.0",
-  "app_name": "aws-cdk-sam-chalice-web-api",
+  "app_name": "aws-cdk-sam-chalice",
   "stages": {
     "dev": {
       "api_gateway_stage": "api"
     },
-    "WebApiDev": {
+    "AwsCdkSamChaliceDev": {
       "api_gateway_stage": "v1",
       "lambda_functions": {
         "api_handler": {
@@ -19,7 +19,7 @@
         }
       }
     },
-    "WebApiProdEuWest1": {
+    "AwsCdkSamChaliceProdEuWest1": {
       "api_gateway_stage": "v1",
       "lambda_functions": {
         "api_handler": {
@@ -33,7 +33,7 @@
         }
       }
     },
-    "WebApiProdUsEast1": {
+    "AwsCdkSamChaliceProdUsEast1": {
       "api_gateway_stage": "v1",
       "lambda_functions": {
         "api_handler": {
