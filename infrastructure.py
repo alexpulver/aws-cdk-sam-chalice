@@ -5,7 +5,7 @@ from aws_cdk import (
     aws_iam as iam,
     core as cdk
 )
-from cdk_chalice import Chalice, PackageConfig
+from cdk_chalice import Chalice
 
 
 class AwsCdkSamChalice(cdk.Stack):
@@ -34,10 +34,9 @@ class AwsCdkSamChalice(cdk.Stack):
         self.dynamodb_table.grant_read_write_data(self.api_handler_iam_role)
 
         chalice_stage_config = self._create_chalice_stage_config()
-        package_config = PackageConfig(use_container=True)
         self.chalice = Chalice(
             self, 'Api', source_dir=AwsCdkSamChalice._CHALICE_RUNTIME_SOURCE_DIR,
-            stage_config=chalice_stage_config, package_config=package_config)
+            stage_config=chalice_stage_config)
         rest_api = self.chalice.sam_template.get_resource('RestAPI')
         rest_api.tracing_enabled = True
 
