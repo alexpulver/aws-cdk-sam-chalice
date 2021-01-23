@@ -1,4 +1,4 @@
--c runtime/requirements.txt
+-c runtime/web_api/requirements.txt
 aws_cdk.aws_dynamodb
 aws_cdk.core
 cdk-chalice

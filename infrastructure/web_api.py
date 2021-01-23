@@ -12,7 +12,8 @@ class WebApi(cdk.Stack):
 
     _API_HANDLER_LAMBDA_MEMORY_SIZE = 128
     _API_HANDLER_LAMBDA_TIMEOUT = 10
-    _CHALICE_SOURCE_DIR = os.path.join(os.path.dirname(__file__), os.pardir, 'runtime')
+    _CHALICE_RUNTIME_SOURCE_DIR = os.path.join(
+        os.path.dirname(__file__), os.pardir, 'runtime', 'web_api')
 
     def __init__(self, scope: cdk.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
@@ -36,7 +37,7 @@ class WebApi(cdk.Stack):
         chalice_stage_config = self._create_chalice_stage_config()
         package_config = PackageConfig(use_container=True)
         self.chalice = Chalice(
-            self, 'WebApi', source_dir=WebApi._CHALICE_SOURCE_DIR,
+            self, 'WebApi', source_dir=WebApi._CHALICE_RUNTIME_SOURCE_DIR,
             stage_config=chalice_stage_config, package_config=package_config)
         rest_api = self.chalice.sam_template.get_resource('RestAPI')
         rest_api.tracing_enabled = True
