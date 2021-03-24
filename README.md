@@ -28,10 +28,10 @@ pip install pip-tools
 pip-sync runtime/requirements.txt requirements.txt requirements-dev.txt
 
 ## Upgrading dependencies (ordered by constraints)
-pip-compile --upgrade runtime/requirements.in
+pip-compile --upgrade api/runtime/requirements.in
 pip-compile --upgrade requirements.in
 pip-compile --upgrade requirements-dev.in
-pip-sync runtime/requirements.txt requirements.txt requirements-dev.txt
+pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt
 ```
 
 #### Synthesize and deploy development stack
