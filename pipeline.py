@@ -10,7 +10,7 @@ from monitoring import Monitoring
 
 class DeploymentUnit(cdk.Stage):
 
-    def __init__(self, scope, id, **kwargs):
+    def __init__(self, scope: cdk.Construct, id: str, **kwargs):
         super().__init__(self, scope, id, **kwargs)
 
         database_stack = cdk.Stack(self, 'DatabaseStack')
@@ -25,7 +25,9 @@ class DeploymentUnit(cdk.Stage):
 
 class Pipeline(cdk.Stack):
 
-    def __init__(self):
-        pipeline = pipelines.CdkPipeline()
-        deployment_unit = DeploymentUnit()
+    def __init__(self, scope: cdk.Construct, id: str, **kwargs):
+        super().__init__(self, scope, id, **kwargs)
+
+        pipeline = pipelines.CdkPipeline(self, 'CdkPipeline')
+        deployment_unit = DeploymentUnit(self, 'DeploymentUnit')
         pipeline.add_application_stage(deployment_unit)
