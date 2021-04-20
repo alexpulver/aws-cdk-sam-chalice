@@ -16,6 +16,8 @@ class Api(cdk.Construct):
     def __init__(self, scope: cdk.Construct, id: str, database: cdk.Construct, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
+        self.database = database
+
         lambda_service_principal = iam.ServicePrincipal('lambda.amazonaws.com')
         cloudwatch_logs_policy = iam.ManagedPolicy.from_aws_managed_policy_name(
             'service-role/AWSLambdaBasicExecutionRole')
@@ -40,7 +42,7 @@ class Api(cdk.Construct):
                     'manage_iam_role': False,
                     'iam_role_arn': self.api_handler_iam_role.role_arn,
                     'environment_variables': {
-                        'DYNAMODB_TABLE_NAME': self.dynamodb_table.table_name
+                        'DYNAMODB_TABLE_NAME': self.database.dynamodb_table.table_name
                     },
                     'lambda_memory_size': Api._API_HANDLER_LAMBDA_MEMORY_SIZE,
                     'lambda_timeout': Api._API_HANDLER_LAMBDA_TIMEOUT
