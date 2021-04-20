@@ -1,7 +1,7 @@
 from aws_cdk import core as cdk
 
 from dev import Dev
-from pipeline import Pipeline
+from pipeline.infrastructure import Pipeline
 
 app = cdk.App()
 

@@ -4,8 +4,8 @@ from aws_cdk import (
 )
 
 from api.infrastructure import Api
-from database import Database
-from monitoring import Monitoring
+from database.infrastructure import Database
+from monitoring.infrastructure import Monitoring
 
 
 class DeploymentUnit(cdk.Stage):
