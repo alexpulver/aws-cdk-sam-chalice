@@ -24,8 +24,8 @@ cd aws-cdk-sam-chalice
 # Create Python virtual environment and install the dependencies
 python3 -m venv .venv
 source .venv/bin/activate
-pip install pip-tools
-pip-sync runtime/requirements.txt requirements.txt requirements-dev.txt
+pip install pip-tools==6.0.1
+pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt
 
 ## Upgrading dependencies (ordered by constraints)
 pip-compile --upgrade api/runtime/requirements.in

@@ -3,20 +3,29 @@ from aws_cdk import (
     pipelines
 )
 
+from api.infrastructure import Api
+from database import Database
+from monitoring import Monitoring
+
 
 class DeploymentUnit(cdk.Stage):
 
     def __init__(self, scope, id, **kwargs):
         super().__init__(self, scope, id, **kwargs)
 
-        storage = Storage(cdk.Stack(self, 'StorageStack'), 'Storage')
-        api = Api(cdk.Stack(self, 'ApiStack'), 'Api', storage)
-        monitoring = Monitoring(cdk.Stack(self, 'MonitoringStack'), 'Monitoring', storage, api)
+        database_stack = cdk.Stack(self, 'DatabaseStack')
+        database = Database(database_stack, 'Database')
 
+        api_stack = cdk.Stack(self, 'ApiStack')
+        api = Api(api_stack, 'Api', database)
+
+        monitoring_stack = cdk.Stack(self, 'MonitoringStack')
+        Monitoring(monitoring_stack, 'Monitoring', database, api)
 
 
 class Pipeline(cdk.Stack):
 
     def __init__(self):
-        cdk_pipeline = pipelines.CdkPipeline()
-
+        pipeline = pipelines.CdkPipeline()
+        deployment_unit = DeploymentUnit()
+        pipeline.add_application_stage(deployment_unit)

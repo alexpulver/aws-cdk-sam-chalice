@@ -1,31 +1,20 @@
 import os
 
 from aws_cdk import (
-    aws_dynamodb as dynamodb,
     aws_iam as iam,
     core as cdk
 )
 from cdk_chalice import Chalice
 
 
-# We wanted to separate
-
 class Api(cdk.Construct):
 
     _API_HANDLER_LAMBDA_MEMORY_SIZE = 128
     _API_HANDLER_LAMBDA_TIMEOUT = 10
-    _CHALICE_RUNTIME_SOURCE_DIR = os.path.join(os.path.dirname(__file__),
-                                               'runtime')
+    _CHALICE_RUNTIME_SOURCE_DIR = os.path.join(os.path.dirname(__file__), 'runtime')
 
-    def __init__(self, scope: cdk.Construct, id: str, **kwargs) -> None:
+    def __init__(self, scope: cdk.Construct, id: str, database: cdk.Construct, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
-
-        partition_key = dynamodb.Attribute(
-            name='username', type=dynamodb.AttributeType.STRING)
-        self.dynamodb_table = dynamodb.Table(
-            self, 'UsersTable', partition_key=partition_key,
-            removal_policy=cdk.RemovalPolicy.DESTROY)
-        cdk.CfnOutput(self, 'UsersTableName', value=self.dynamodb_table.table_name)
 
         lambda_service_principal = iam.ServicePrincipal('lambda.amazonaws.com')
         cloudwatch_logs_policy = iam.ManagedPolicy.from_aws_managed_policy_name(
@@ -34,7 +23,7 @@ class Api(cdk.Construct):
             self, 'ApiHandlerLambdaRole', assumed_by=lambda_service_principal,
             managed_policies=[cloudwatch_logs_policy])
 
-        self.dynamodb_table.grant_read_write_data(self.api_handler_iam_role)
+        database.dynamodb_table.grant_read_write_data(self.api_handler_iam_role)
 
         chalice_stage_config = self._create_chalice_stage_config()
         self.chalice = Chalice(

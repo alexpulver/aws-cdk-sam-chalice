@@ -3,6 +3,8 @@ import os
 from aws_cdk import core as cdk
 
 from api.infrastructure import Api
+from database import Database
+from monitoring import Monitoring
 
 
 class Dev(cdk.Stack):
@@ -13,7 +15,7 @@ class Dev(cdk.Stack):
 
     def __init__(self, scope, id):
         super().__init__(scope, id, env=Dev.env)
-        storage = Storage(self, 'Storage')
-        api = Api(self, 'Api', storage)
-        monitoring = Monitoring(self, 'Monitoring', storage, api)
+        database = Database(self, 'Database')
+        api = Api(self, 'Api', database)
+        monitoring = Monitoring(self, 'Monitoring', database, api)
 
