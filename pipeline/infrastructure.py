@@ -33,9 +33,9 @@ class AwsCdkSamChalicePipeline(cdk.Stack):
         cloud_assembly_artifact = codepipeline.Artifact()
         source_artifact = codepipeline.Artifact()
         source_action = codepipeline_actions.GitHubSourceAction(
-            action_name="GitHub", output=source_artifact,
-            oauth_token=cdk.SecretValue.secrets_manager("GITHUB_TOKEN_NAME"),
-            owner="OWNER", repo="REPO", branch="main")
+            action_name='GitHub', output=source_artifact,
+            oauth_token=cdk.SecretValue.secrets_manager('GITHUB_TOKEN_NAME'),
+            owner='OWNER', repo='REPO', branch='main')
         synth_action = pipelines.SimpleSynthAction.standard_npm_synth(
             source_artifact=source_artifact,
             cloud_assembly_artifact=cloud_assembly_artifact)
