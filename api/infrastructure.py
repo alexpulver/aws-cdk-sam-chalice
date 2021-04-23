@@ -29,7 +29,7 @@ class Api(cdk.Construct):
 
         chalice_stage_config = self._create_chalice_stage_config()
         self.chalice = Chalice(
-            self, 'Api', source_dir=Api._CHALICE_RUNTIME_SOURCE_DIR,
+            self, 'Chalice', source_dir=Api._CHALICE_RUNTIME_SOURCE_DIR,
             stage_config=chalice_stage_config)
         rest_api = self.chalice.sam_template.get_resource('RestAPI')
         rest_api.tracing_enabled = True
