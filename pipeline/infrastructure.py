@@ -15,17 +15,17 @@ class DeploymentUnit(cdk.Stage):
     def __init__(self, scope: cdk.Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
-        database_deployment_unit = cdk.Stack(self, 'DatabaseDeploymentUnit')
-        database = Database(database_deployment_unit, 'Database')
+        database_stack = cdk.Stack(self, 'DatabaseStack')
+        database = Database(database_stack, 'Database')
 
-        api_deployment_unit = cdk.Stack(self, 'ApiDeploymentUnit')
-        api = Api(api_deployment_unit, 'Api', database)
+        api_stack = cdk.Stack(self, 'ApiStack')
+        api = Api(api_stack, 'Api', database)
 
-        monitoring_deployment_unit = cdk.Stack(self, 'MonitoringDeploymentUnit')
-        Monitoring(monitoring_deployment_unit, 'Monitoring', database, api)
+        monitoring_stack = cdk.Stack(self, 'MonitoringStack')
+        Monitoring(monitoring_stack, 'Monitoring', database, api)
 
 
-class Pipeline(cdk.Stack):
+class AwsCdkSamChalicePipeline(cdk.Stack):
 
     def __init__(self, scope: cdk.Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)

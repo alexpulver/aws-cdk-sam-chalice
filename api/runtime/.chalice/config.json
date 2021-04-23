@@ -99,6 +99,48 @@
           "lambda_timeout": 10
         }
       }
+    },
+    "AwsCdkSamChaliceDev/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.94]}",
+          "environment_variables": {
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.84]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "AwsCdkSamChalicePipeline/Test/ApiDeploymentUnit/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.261]}",
+          "environment_variables": {
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.251]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "AwsCdkSamChalicePipeline/Test/ApiStack/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.260]}",
+          "environment_variables": {
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.250]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
     }
   }
 }
