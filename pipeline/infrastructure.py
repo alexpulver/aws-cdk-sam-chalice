@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 from aws_cdk import (
     core as cdk,
     aws_codepipeline as codepipeline,
@@ -30,10 +33,13 @@ class Pipeline(cdk.Stack):
             install_commands=['npm install', 'pip install -r requirements.txt'],
             synth_command='npx cdk synth')
 
-        # TODO: Use the CDK CLI version number from package.json dynamically
+        package_json_path = Path(__file__).resolve().parent.parent.joinpath('package.json')
+        with open(package_json_path) as package_json_file:
+            package_json = json.load(package_json_file)
+        cdk_cli_version = package_json['devDependencies']['aws-cdk']
         cdk_pipeline = pipelines.CdkPipeline(
             self, 'CdkPipeline', source_action=source_action, synth_action=synth_action,
-            cdk_cli_version='1.103.0', cloud_assembly_artifact=cloud_assembly_artifact)
+            cdk_cli_version=cdk_cli_version, cloud_assembly_artifact=cloud_assembly_artifact)
 
         test_env = cdk.Environment(account='807650736403', region='eu-west-1')
         test_stage = Stage(self, f'{APPLICATION_NAME}PipelineTestStage', env=test_env)
