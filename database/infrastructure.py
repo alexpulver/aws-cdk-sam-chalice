@@ -14,4 +14,3 @@ class Database(cdk.Construct):
         self.table = dynamodb.Table(
             self, 'Table', partition_key=partition_key,
             removal_policy=cdk.RemovalPolicy.DESTROY)
-        cdk.CfnOutput(self, 'TableName', value=self.table.table_name)

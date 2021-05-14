@@ -30,7 +30,12 @@ class Pipeline(cdk.Stack):
         synth_action = pipelines.SimpleSynthAction(
             source_artifact=source_artifact,
             cloud_assembly_artifact=cloud_assembly_artifact,
-            install_commands=['npm install', 'pip install -r requirements.txt'],
+            install_commands=[
+                'npm install',
+                'pip install pip-tools==6.0.1',
+                'pip-sync api/runtime/requirements.txt requirements.txt'
+            ],
+            build_commands=['scripts/run-tests.sh'],
             synth_command='npx cdk synth')
 
         package_json_path = Path(__file__).resolve().parent.parent.joinpath('package.json')
