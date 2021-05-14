@@ -11,7 +11,7 @@ class Database(cdk.Construct):
 
         partition_key = dynamodb.Attribute(
             name='username', type=dynamodb.AttributeType.STRING)
-        self.dynamodb_table = dynamodb.Table(
-            self, 'UsersTable', partition_key=partition_key,
+        self.table = dynamodb.Table(
+            self, 'Table', partition_key=partition_key,
             removal_policy=cdk.RemovalPolicy.DESTROY)
-        cdk.CfnOutput(self, 'UsersTableName', value=self.dynamodb_table.table_name)
+        cdk.CfnOutput(self, 'TableName', value=self.table.table_name)

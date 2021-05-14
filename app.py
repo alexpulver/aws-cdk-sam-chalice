@@ -1,13 +1,14 @@
 from aws_cdk import core as cdk
 
-from dev import AwsCdkSamChaliceDev
-from pipeline.infrastructure import AwsCdkSamChalicePipeline
+from config import APPLICATION_NAME
+from dev import Dev
+from pipeline.infrastructure import Pipeline
 
 app = cdk.App()
 
-pipeline_env = cdk.Environment(account='123456789012', region='eu-west-1')
+pipeline_env = cdk.Environment(account='807650736403', region='eu-west-1')
 
-AwsCdkSamChaliceDev(app, 'AwsCdkSamChaliceDev')
-AwsCdkSamChalicePipeline(app, 'AwsCdkSamChalicePipeline', env=pipeline_env)
+Dev(app, f'{APPLICATION_NAME}Dev')
+Pipeline(app, f'{APPLICATION_NAME}Pipeline', env=pipeline_env)
 
 app.synth()

@@ -14,12 +14,12 @@ See [Getting Started With the AWS CDK](https://docs.aws.amazon.com/cdk/latest/gu
 for additional details and prerequisites
 
 ```bash
-# Install the CDK CLI
-npm install -g aws-cdk
-
 # Clone the code
 git clone -b future https://github.com/alexpulver/aws-cdk-sam-chalice
 cd aws-cdk-sam-chalice
+
+# Install the local CDK CLI
+npm install
 
 # Create Python virtual environment and install the dependencies
 python3 -m venv .venv
@@ -39,11 +39,11 @@ pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt
 The `AwsCdkSamChaliceDev` stack uses your current AWS profile account and credentials.
 
 ```bash
-cdk synth
-cdk deploy AwsCdkSamChaliceDev
+npx cdk synth
+npx cdk deploy AwsCdkSamChaliceDev
 ```
 
-Example output for `cdk deploy ...`:
+Example output for `npx cdk deploy AwsCdkSamChaliceDev`:
 
 ```text
 AwsCdkSamChaliceDev.UsersTableName = AwsCdkSamChaliceDev-UsersTable9725E9C8-BTQT7EIOV1UC
@@ -56,7 +56,7 @@ AwsCdkSamChaliceDev.EndpointURL = https://letbml5594.execute-api.eu-west-1.amazo
 **Do not forget to delete the stack once done with testing to avoid unexpected
 charges:**
 ```bash
-cdk destroy AwsCdkSamChaliceDev
+npx cdk destroy AwsCdkSamChaliceDev
 ```
 
 #### Testing the web API

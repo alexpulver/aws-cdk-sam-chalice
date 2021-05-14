@@ -9,6 +9,7 @@
 
 # Environment
 .venv/
+node_modules/
 
 # AWS Chalice files
 chalice.out/

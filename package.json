@@ -1,0 +1,8 @@
+{
+    "devDependencies": {
+        "aws-cdk": "1.103.0"
+    },
+    "scripts": {
+        "cdk": "cdk"
+    }
+}

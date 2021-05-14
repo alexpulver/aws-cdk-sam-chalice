@@ -105,9 +105,9 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.94]}",
+          "iam_role_arn": "${Token[TOKEN.97]}",
           "environment_variables": {
-            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.84]}"
+            "TABLE_NAME": "${Token[TOKEN.87]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
@@ -133,9 +133,65 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.262]}",
+          "environment_variables": {
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.252]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "AwsCdkSamChalicePipeline/AwsCdkSamChaliceDevTest/ApiStack/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.259]}",
+          "environment_variables": {
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.249]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "AwsCdkSamChalicePipeline/AwsCdkSamChaliceTest/ApiStack/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.256]}",
+          "environment_variables": {
+            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.246]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "AwsCdkSamChalicePipeline/AwsCdkSamChaliceTestStage/ApiDeploymentUnit/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
           "iam_role_arn": "${Token[TOKEN.260]}",
           "environment_variables": {
-            "DYNAMODB_TABLE_NAME": "${Token[TOKEN.250]}"
+            "TABLE_NAME": "${Token[TOKEN.250]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "AwsCdkSamChalicePipeline/AwsCdkSamChalicePipelineTestStage/ApiDeploymentUnit/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.274]}",
+          "environment_variables": {
+            "TABLE_NAME": "${Token[TOKEN.264]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
