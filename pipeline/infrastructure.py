@@ -46,9 +46,9 @@ class Pipeline(cdk.Stack):
             self, 'CdkPipeline', source_action=source_action, synth_action=synth_action,
             cdk_cli_version=cdk_cli_version, cloud_assembly_artifact=cloud_assembly_artifact)
 
-        test_env = cdk.Environment(account='807650736403', region='eu-west-1')
-        test_stage = Stage(self, f'{APPLICATION_NAME}PipelineTestStage', env=test_env)
-        cdk_pipeline.add_application_stage(test_stage)
+        pre_prod_env = cdk.Environment(account='807650736403', region='eu-west-1')
+        pre_prod = Stage(self, f'{APPLICATION_NAME}PipelinePreProd', env=pre_prod_env)
+        cdk_pipeline.add_application_stage(pre_prod)
 
 
 class Stage(cdk.Stage):
