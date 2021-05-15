@@ -18,20 +18,16 @@ for additional details and prerequisites
 git clone -b future https://github.com/alexpulver/aws-cdk-sam-chalice
 cd aws-cdk-sam-chalice
 
-# Install the local CDK CLI
-npm install
-
 # Create Python virtual environment and install the dependencies
 python3 -m venv .venv
 source .venv/bin/activate
-pip install pip-tools==6.0.1
-pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt
+scripts/install-deps.sh
 
 ## Upgrading dependencies (ordered by constraints)
 pip-compile --upgrade api/runtime/requirements.in
 pip-compile --upgrade requirements.in
 pip-compile --upgrade requirements-dev.in
-pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt
+scripts/install-deps.sh
 ```
 
 #### Synthesize and deploy development stack
