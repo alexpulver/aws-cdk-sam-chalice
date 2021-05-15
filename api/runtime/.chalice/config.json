@@ -105,9 +105,9 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.94]}",
+          "iam_role_arn": "${Token[TOKEN.91]}",
           "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.84]}"
+            "TABLE_NAME": "${Token[TOKEN.82]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
@@ -192,6 +192,20 @@
           "iam_role_arn": "${Token[TOKEN.272]}",
           "environment_variables": {
             "TABLE_NAME": "${Token[TOKEN.262]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "AwsCdkSamChalicePipeline/AwsCdkSamChalicePipelinePreProd/ApiDeploymentUnit/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.268]}",
+          "environment_variables": {
+            "TABLE_NAME": "${Token[TOKEN.259]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
