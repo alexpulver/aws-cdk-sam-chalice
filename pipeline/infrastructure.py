@@ -57,7 +57,6 @@ class Application(cdk.Stage):
         api_deployment_unit = cdk.Stack(self, 'ApiDeploymentUnit')
         api = Api(api_deployment_unit, 'Api', database)
 
+        # TODO: Fix export and import of RestAPI value from Api class
         monitoring_deployment_unit = cdk.Stack(self, 'MonitoringDeploymentUnit')
-        # Monitoring uses CfnApi produced by Chalice, and CDK doesn't generate dependency on Api automatically.
-        monitoring_deployment_unit.add_dependency(api_deployment_unit)
         Monitoring(monitoring_deployment_unit, 'Monitoring', database, api)
