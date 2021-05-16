@@ -26,7 +26,6 @@ class Pipeline(cdk.Stack):
             action_name='GitHub', output=source_artifact,
             connection_arn='arn:aws:codestar-connections:eu-west-1:807650736403:connection/1f244295-871f-411f-afb1-e6ca987858b6',
             owner='alexpulver', repo='aws-cdk-sam-chalice', branch='future')
-
         synth_action = pipelines.SimpleSynthAction(
             source_artifact=source_artifact,
             cloud_assembly_artifact=cloud_assembly_artifact,
