@@ -8,10 +8,8 @@ from aws_cdk import (
     pipelines
 )
 
-from api.infrastructure import Api
 from config import APPLICATION_NAME
-from database.infrastructure import Database
-from monitoring.infrastructure import Monitoring
+from stacks import Application
 
 
 class Pipeline(cdk.Stack):
@@ -42,21 +40,13 @@ class Pipeline(cdk.Stack):
             cdk_cli_version=cdk_cli_version, cloud_assembly_artifact=cloud_assembly_artifact)
 
         pre_prod_env = cdk.Environment(account='807650736403', region='eu-west-1')
-        pre_prod_app = Application(self, f'{APPLICATION_NAME}PreProd', env=pre_prod_env)
-        cdk_pipeline.add_application_stage(pre_prod_app)
+        pre_prod_deployment = Deployment(self, f'{APPLICATION_NAME}-PreProd', env=pre_prod_env)
+        cdk_pipeline.add_application_stage(pre_prod_deployment)
 
 
-class Application(cdk.Stage):
+class Deployment(cdk.Stage):
 
     def __init__(self, scope: cdk.Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
-        database_deployment_unit = cdk.Stack(self, 'DatabaseDeploymentUnit')
-        database = Database(database_deployment_unit, 'Database')
-
-        api_deployment_unit = cdk.Stack(self, 'ApiDeploymentUnit')
-        api = Api(api_deployment_unit, 'Api', database)
-
-        # TODO: Fix export and import of RestAPI value from Api class
-        monitoring_deployment_unit = cdk.Stack(self, 'MonitoringDeploymentUnit')
-        Monitoring(monitoring_deployment_unit, 'Monitoring', database, api)
+        Application(self, 'Application')
