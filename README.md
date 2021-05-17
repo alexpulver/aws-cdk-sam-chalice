@@ -36,23 +36,23 @@ The `AwsCdkSamChaliceDev` stack uses your current AWS profile account and creden
 
 ```bash
 npx cdk synth
-npx cdk deploy AwsCdkSamChaliceDev
+npx cdk deploy AwsCdkSamChalice-Dev-Application
 ```
 
-Example output for `npx cdk deploy AwsCdkSamChaliceDev`:
+Example output for `npx cdk deploy AwsCdkSamChalice-Dev-Application`:
 
 ```text
-AwsCdkSamChaliceDev.UsersTableName = AwsCdkSamChaliceDev-UsersTable9725E9C8-BTQT7EIOV1UC
-AwsCdkSamChaliceDev.APIHandlerArn = arn:aws:lambda:eu-west-1:123456789012:function:AwsCdkSamChaliceDev-APIHandler-13LVIC507UIAN
-AwsCdkSamChaliceDev.APIHandlerName = AwsCdkSamChaliceDev-APIHandler-13LVIC507UIAN
-AwsCdkSamChaliceDev.RestAPIId = letbml5594
-AwsCdkSamChaliceDev.EndpointURL = https://letbml5594.execute-api.eu-west-1.amazonaws.com/v1/
+AwsCdkSamChalice-Dev-Application.UsersTableName = AwsCdkSamChalice-Dev-Application-UsersTable9725E9C8-BTQT7EIOV1UC
+AwsCdkSamChalice-Dev-Application.APIHandlerArn = arn:aws:lambda:eu-west-1:123456789012:function:AwsCdkSamChalice-Dev-Application-APIHandler-13LVIC507UIAN
+AwsCdkSamChalice-Dev-Application.APIHandlerName = AwsCdkSamChalice-Dev-Application-APIHandler-13LVIC507UIAN
+AwsCdkSamChalice-Dev-Application.RestAPIId = letbml5594
+AwsCdkSamChalice-Dev-Application.EndpointURL = https://letbml5594.execute-api.eu-west-1.amazonaws.com/v1/
 ```
 
 **Do not forget to delete the stack once done with testing to avoid unexpected
 charges:**
 ```bash
-npx cdk destroy AwsCdkSamChaliceDev
+npx cdk destroy AwsCdkSamChalice-Dev-Application
 ```
 
 #### Testing the web API
