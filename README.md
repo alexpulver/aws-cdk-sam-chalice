@@ -32,14 +32,14 @@ scripts/install-deps.sh
 
 #### Synthesize and deploy development stack
 
-The `AwsCdkSamChaliceDev` stack uses your current AWS profile account and credentials.
+The `AwsCdkSamChalice-Dev-Application` stack uses your current AWS profile account and credentials.
 
 ```bash
 npx cdk synth
 npx cdk deploy AwsCdkSamChalice-Dev-Application
 ```
 
-Example output for `npx cdk deploy AwsCdkSamChalice-Dev-Application`:
+Example output for `npx cdk deploy AwsCdkSamChalice-Dev-Application` stack:
 
 ```text
 AwsCdkSamChalice-Dev-Application.UsersTableName = AwsCdkSamChalice-Dev-Application-UsersTable9725E9C8-BTQT7EIOV1UC
