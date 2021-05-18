@@ -40,14 +40,13 @@ class Pipeline(cdk.Stack):
             cdk_cli_version=cdk_cli_version, cloud_assembly_artifact=cloud_assembly_artifact)
 
         pre_prod_env = cdk.Environment(account='807650736403', region='eu-west-1')
-        pre_prod_deployment = Deployment(self, 'Deployment', stage_name='PreProd', env=pre_prod_env)
-        pre_prod_stage = cdk_pipeline.add_stage('PreProd')
-        pre_prod_stage.add_application(pre_prod_deployment)
+        pre_prod_deployment = Deployment(self, f'{APPLICATION_NAME}-PreProd', env=pre_prod_env)
+        cdk_pipeline.add_application_stage(pre_prod_deployment)
 
 
 class Deployment(cdk.Stage):
 
-    def __init__(self, scope: cdk.Construct, id: str, stage_name: str, **kwargs):
+    def __init__(self, scope: cdk.Construct, id: str, **kwargs):
         super().__init__(scope, id, **kwargs)
 
-        Application(self, 'Application', stack_name=f'{APPLICATION_NAME}-{stage_name}')
+        Application(self, 'Application')
