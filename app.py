@@ -4,7 +4,7 @@ from aws_cdk import core as cdk
 
 from config import APPLICATION_NAME
 from pipeline.infrastructure import Pipeline
-from stacks import Deployment
+from stages import Deployment
 
 app = cdk.App()
 

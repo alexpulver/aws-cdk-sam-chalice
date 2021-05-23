@@ -9,7 +9,7 @@ from aws_cdk import (
 )
 
 from config import APPLICATION_NAME
-from stacks import Deployment
+from stages import Deployment
 
 
 class Pipeline(cdk.Stack):
