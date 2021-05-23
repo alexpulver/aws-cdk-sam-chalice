@@ -9,7 +9,7 @@ from aws_cdk import (
 )
 
 from config import APPLICATION_NAME
-from stacks import Application
+from stacks import Deployment
 
 
 class Pipeline(cdk.Stack):
@@ -42,11 +42,3 @@ class Pipeline(cdk.Stack):
         pre_prod_env = cdk.Environment(account='807650736403', region='eu-west-1')
         pre_prod_deployment = Deployment(self, f'{APPLICATION_NAME}-PreProd', env=pre_prod_env)
         cdk_pipeline.add_application_stage(pre_prod_deployment)
-
-
-class Deployment(cdk.Stage):
-
-    def __init__(self, scope: cdk.Construct, id: str, **kwargs):
-        super().__init__(scope, id, **kwargs)
-
-        Application(self, 'Application')

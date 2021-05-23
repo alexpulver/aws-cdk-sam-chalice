@@ -1,15 +1,15 @@
 {
   "version": "2.0",
-  "app_name": "aws-cdk-sam-chalice",
+  "app_name": "AwsCdkSamChalice",
   "stages": {
-    "AwsCdkSamChalice-Dev-Application/Api": {
+    "AwsCdkSamChalice-Dev/Application/Api": {
       "api_gateway_stage": "v1",
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.91]}",
+          "iam_role_arn": "${Token[TOKEN.92]}",
           "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.82]}"
+            "TABLE_NAME": "${Token[TOKEN.83]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
@@ -21,9 +21,9 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.272]}",
+          "iam_role_arn": "${Token[TOKEN.273]}",
           "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.263]}"
+            "TABLE_NAME": "${Token[TOKEN.264]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10

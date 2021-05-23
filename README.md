@@ -32,27 +32,26 @@ scripts/install-deps.sh
 
 #### Synthesize and deploy development stack
 
-The `AwsCdkSamChalice-Dev-Application` stack uses your current AWS profile account and credentials.
+The `AwsCdkSamChalice-Dev/Application` stack uses your current AWS profile account and credentials.
 
 ```bash
 npx cdk synth
-npx cdk deploy AwsCdkSamChalice-Dev-Application
+npx cdk deploy AwsCdkSamChalice-Dev/Application
 ```
 
 Example output for `npx cdk deploy AwsCdkSamChalice-Dev-Application` stack:
 
 ```text
-AwsCdkSamChalice-Dev-Application.UsersTableName = AwsCdkSamChalice-Dev-Application-UsersTable9725E9C8-BTQT7EIOV1UC
-AwsCdkSamChalice-Dev-Application.APIHandlerArn = arn:aws:lambda:eu-west-1:123456789012:function:AwsCdkSamChalice-Dev-Application-APIHandler-13LVIC507UIAN
-AwsCdkSamChalice-Dev-Application.APIHandlerName = AwsCdkSamChalice-Dev-Application-APIHandler-13LVIC507UIAN
-AwsCdkSamChalice-Dev-Application.RestAPIId = letbml5594
-AwsCdkSamChalice-Dev-Application.EndpointURL = https://letbml5594.execute-api.eu-west-1.amazonaws.com/v1/
+AwsCdkSamChaliceDevApplication1F0BF25A.APIHandlerArn = arn:aws:lambda:eu-west-1:123456789012:function:AwsCdkSamChalice-Dev-Application-APIHandler-1PEIOK9ZRGT4D
+AwsCdkSamChaliceDevApplication1F0BF25A.APIHandlerName = AwsCdkSamChalice-Dev-Application-APIHandler-1PEIOK9ZRGT4D
+AwsCdkSamChaliceDevApplication1F0BF25A.EndpointURL = https://usuf95bc7a.execute-api.eu-west-1.amazonaws.com/v1/
+AwsCdkSamChaliceDevApplication1F0BF25A.RestAPIId = usuf95bc7a
 ```
 
 **Do not forget to delete the stack once done with testing to avoid unexpected
 charges:**
 ```bash
-npx cdk destroy AwsCdkSamChalice-Dev-Application
+npx cdk destroy AwsCdkSamChalice-Dev/Application
 ```
 
 #### Testing the web API
