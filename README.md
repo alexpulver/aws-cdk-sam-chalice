@@ -39,7 +39,7 @@ npx cdk synth
 npx cdk deploy AwsCdkSamChalice-Dev/Application
 ```
 
-Example output for `npx cdk deploy AwsCdkSamChalice-Dev-Application` stack:
+Example output for `npx cdk deploy AwsCdkSamChalice-Dev/Application` stack:
 
 ```text
 AwsCdkSamChaliceDevApplication1F0BF25A.APIHandlerArn = arn:aws:lambda:eu-west-1:123456789012:function:AwsCdkSamChalice-Dev-Application-APIHandler-1PEIOK9ZRGT4D
