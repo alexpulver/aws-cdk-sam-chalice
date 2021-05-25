@@ -8,7 +8,7 @@ microframework.
 The service being built is based on Amazon API Gateway and AWS Lambda, 
 and provides basic CRUD operations for managing users in a DynamoDB table.
 
-#### Setting up development environment
+#### Create development environment
 
 See [Getting Started With the AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
 for additional details and prerequisites
@@ -30,12 +30,11 @@ pip-compile --upgrade requirements-dev.in
 scripts/install-deps.sh
 ```
 
-#### Synthesize and deploy development stack
+#### Deploy development stack
 
 The `AwsCdkSamChalice-Dev/Application` stack uses your current AWS profile account and credentials.
 
 ```bash
-npx cdk synth
 npx cdk deploy AwsCdkSamChalice-Dev/Application
 ```
 
