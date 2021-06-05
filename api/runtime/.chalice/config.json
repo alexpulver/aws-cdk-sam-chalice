@@ -7,9 +7,9 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.93]}",
+          "iam_role_arn": "${Token[TOKEN.89]}",
           "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.84]}"
+            "TABLE_NAME": "${Token[TOKEN.80]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
@@ -21,9 +21,9 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.274]}",
+          "iam_role_arn": "${Token[TOKEN.270]}",
           "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.265]}"
+            "TABLE_NAME": "${Token[TOKEN.261]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10

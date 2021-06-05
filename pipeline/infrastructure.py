@@ -42,5 +42,6 @@ class Pipeline(cdk.Stack):
 
         pre_prod_env = cdk.Environment(account='807650736403', region='eu-west-1')
         pre_prod_deployment = Deployment(
-            self, f'{APPLICATION_NAME}-PreProd', billing_mode=dynamodb.BillingMode.PROVISIONED, env=pre_prod_env)
+            self, f'{APPLICATION_NAME}-PreProd',
+            dynamodb_billing_mode=dynamodb.BillingMode.PROVISIONED, env=pre_prod_env)
         cdk_pipeline.add_application_stage(pre_prod_deployment)
