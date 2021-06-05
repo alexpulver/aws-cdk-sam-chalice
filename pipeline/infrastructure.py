@@ -26,10 +26,8 @@ class Pipeline(cdk.Stack):
             connection_arn='arn:aws:codestar-connections:eu-west-1:807650736403:connection/1f244295-871f-411f-afb1-e6ca987858b6',
             owner='alexpulver', repo='aws-cdk-sam-chalice', branch='future')
         synth_action = pipelines.SimpleSynthAction(
-            source_artifact=source_artifact,
-            cloud_assembly_artifact=cloud_assembly_artifact,
-            install_commands=['scripts/install-deps.sh'],
-            build_commands=['scripts/run-tests.sh'],
+            source_artifact=source_artifact, cloud_assembly_artifact=cloud_assembly_artifact,
+            install_commands=['scripts/install-deps.sh'], build_commands=['scripts/run-tests.sh'],
             synth_command='npx cdk synth')
 
         package_json_path = Path(__file__).resolve().parent.parent.joinpath('package.json')
