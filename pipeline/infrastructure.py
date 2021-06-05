@@ -37,7 +37,7 @@ class Pipeline(cdk.Stack):
             package_json = json.load(package_json_file)
         cdk_cli_version = package_json['devDependencies']['aws-cdk']
         cdk_pipeline = pipelines.CdkPipeline(
-            self, 'CdkPipeline', source_action=source_action, synth_action=synth_action,
+            self, 'CdkPipeline', source_action=source_action, synth_action=synth_action, single_publisher_per_type=True,
             cdk_cli_version=cdk_cli_version, cloud_assembly_artifact=cloud_assembly_artifact)
 
         pre_prod_env = cdk.Environment(account='807650736403', region='eu-west-1')
