@@ -2,9 +2,10 @@ import json
 from pathlib import Path
 
 from aws_cdk import (
-    core as cdk,
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as codepipeline_actions,
+    aws_dynamodb as dynamodb,
+    core as cdk,
     pipelines
 )
 
@@ -40,5 +41,6 @@ class Pipeline(cdk.Stack):
             cdk_cli_version=cdk_cli_version, cloud_assembly_artifact=cloud_assembly_artifact)
 
         pre_prod_env = cdk.Environment(account='807650736403', region='eu-west-1')
-        pre_prod_deployment = Deployment(self, f'{APPLICATION_NAME}-PreProd', env=pre_prod_env)
+        pre_prod_deployment = Deployment(
+            self, f'{APPLICATION_NAME}-PreProd', billing_mode=dynamodb.BillingMode.PROVISIONED, env=pre_prod_env)
         cdk_pipeline.add_application_stage(pre_prod_deployment)
