@@ -25,6 +25,7 @@ class Pipeline(cdk.Stack):
             action_name='GitHub', output=source_artifact,
             connection_arn='arn:aws:codestar-connections:eu-west-1:807650736403:connection/1f244295-871f-411f-afb1-e6ca987858b6',
             owner='alexpulver', repo='aws-cdk-sam-chalice', branch='future')
+
         synth_action = pipelines.SimpleSynthAction(
             source_artifact=source_artifact, cloud_assembly_artifact=cloud_assembly_artifact,
             install_commands=['scripts/install-deps.sh'], build_commands=['scripts/run-tests.sh'],
@@ -34,12 +35,27 @@ class Pipeline(cdk.Stack):
         with open(package_json_path) as package_json_file:
             package_json = json.load(package_json_file)
         cdk_cli_version = package_json['devDependencies']['aws-cdk']
+
         cdk_pipeline = pipelines.CdkPipeline(
             self, 'CdkPipeline', source_action=source_action, synth_action=synth_action, single_publisher_per_type=True,
             cdk_cli_version=cdk_cli_version, cloud_assembly_artifact=cloud_assembly_artifact)
 
+        api_endpoint_url_env_var = f'{APPLICATION_NAME.upper()}_API_ENDPOINT_URL'
+
+        self._add_pre_prod_stage(api_endpoint_url_env_var, cdk_pipeline)
+
+    def _add_pre_prod_stage(self, api_endpoint_url_env_var, cdk_pipeline):
         pre_prod_env = cdk.Environment(account='807650736403', region='eu-west-1')
         pre_prod_deployment = Deployment(
             self, f'{APPLICATION_NAME}-PreProd',
             dynamodb_billing_mode=dynamodb.BillingMode.PROVISIONED, env=pre_prod_env)
-        cdk_pipeline.add_application_stage(pre_prod_deployment)
+
+        pre_prod_smoke_test_outputs = {
+            api_endpoint_url_env_var: cdk_pipeline.stack_output(pre_prod_deployment.api_endpoint_url)
+        }
+        pre_prod_smoke_test_commands = [f'curl {api_endpoint_url_env_var}']
+        pre_prod_smoke_test_action = pipelines.ShellScriptAction(
+            action_name='SmokeTest', use_outputs=pre_prod_smoke_test_outputs, commands=pre_prod_smoke_test_commands)
+
+        pre_prod_stage = cdk_pipeline.add_application_stage(pre_prod_deployment)
+        pre_prod_stage.add_actions(pre_prod_smoke_test_action)

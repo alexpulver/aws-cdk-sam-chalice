@@ -17,3 +17,5 @@ class Deployment(cdk.Stage):
         database = Database(application, 'Database', dynamodb_billing_mode)
         api = Api(application, 'Api', database)
         Monitoring(application, 'Monitoring', database, api)
+
+        self.api_endpoint_url = api.chalice.sam_template.get_output('EndpointURL')
