@@ -53,7 +53,7 @@ class Pipeline(cdk.Stack):
         pre_prod_smoke_test_outputs = {
             api_endpoint_url_env_var: cdk_pipeline.stack_output(pre_prod_deployment.api_endpoint_url)
         }
-        pre_prod_smoke_test_commands = [f'curl {api_endpoint_url_env_var}']
+        pre_prod_smoke_test_commands = [f'curl ${api_endpoint_url_env_var}']
         pre_prod_smoke_test_action = pipelines.ShellScriptAction(
             action_name='SmokeTest', use_outputs=pre_prod_smoke_test_outputs, commands=pre_prod_smoke_test_commands)
 
