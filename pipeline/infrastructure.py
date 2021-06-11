@@ -1,13 +1,11 @@
 import json
 from pathlib import Path
 
-from aws_cdk import (
-    aws_codepipeline as codepipeline,
-    aws_codepipeline_actions as codepipeline_actions,
-    aws_dynamodb as dynamodb,
-    core as cdk,
-    pipelines
-)
+from aws_cdk import aws_codepipeline as codepipeline
+from aws_cdk import aws_codepipeline_actions as codepipeline_actions
+from aws_cdk import aws_dynamodb as dynamodb
+from aws_cdk import core as cdk
+from aws_cdk import pipelines
 
 from config import APPLICATION_NAME
 from stages import Deployment

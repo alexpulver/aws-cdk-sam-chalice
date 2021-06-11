@@ -1,14 +1,11 @@
-from aws_cdk import (
-    aws_dynamodb as dynamodb,
-    core as cdk
-)
+from aws_cdk import aws_dynamodb as dynamodb
+from aws_cdk import core as cdk
 
 
 class Database(cdk.Construct):
 
-    def __init__(
-            self, scope: cdk.Construct, id: str, dynamodb_billing_mode: dynamodb.BillingMode, **kwargs) -> None:
-        super().__init__(scope, id, **kwargs)
+    def __init__(self, scope: cdk.Construct, id: str, dynamodb_billing_mode: dynamodb.BillingMode) -> None:
+        super().__init__(scope, id)
 
         partition_key = dynamodb.Attribute(name='username', type=dynamodb.AttributeType.STRING)
         self.table = dynamodb.Table(

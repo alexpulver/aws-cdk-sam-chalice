@@ -1,7 +1,5 @@
-from aws_cdk import (
-    aws_dynamodb as dynamodb,
-    core as cdk
-)
+from aws_cdk import aws_dynamodb as dynamodb
+from aws_cdk import core as cdk
 
 from api.infrastructure import Api
 from database.infrastructure import Database
