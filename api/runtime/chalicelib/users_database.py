@@ -3,6 +3,7 @@ from typing import Dict
 
 
 class UsersDatabase(ABC):
+
     @abstractmethod
     def create_user(self, username: str, user_attributes: Dict[str, str]) -> Dict[str, str]:
         pass

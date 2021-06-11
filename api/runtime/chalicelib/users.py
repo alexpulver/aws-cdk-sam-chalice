@@ -4,6 +4,7 @@ from chalicelib.users_database import UsersDatabase
 
 
 class Users:
+
     def __init__(self, database: UsersDatabase) -> None:
         self._database = database
 

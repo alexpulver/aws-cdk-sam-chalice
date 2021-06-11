@@ -28,9 +28,7 @@ def create_user() -> Response:
 @app.route('/users/{username}', methods=['PUT'])
 def update_user(username: str) -> Response:
     user_attributes = app.current_request.json_body
-
     updated_user = users.update_user(username, user_attributes)
-
     return Response(updated_user)
 
 

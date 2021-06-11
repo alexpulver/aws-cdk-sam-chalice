@@ -43,8 +43,8 @@ class Pipeline(cdk.Stack):
     def _add_pre_prod_stage(self, cdk_pipeline: pipelines.CdkPipeline) -> None:
         pre_prod_env = cdk.Environment(account='807650736403', region='eu-west-1')
         pre_prod_deployment = Deployment(
-            self, f'{APPLICATION_NAME}-PreProd',
-            dynamodb_billing_mode=dynamodb.BillingMode.PROVISIONED, env=pre_prod_env)
+            self, f'{APPLICATION_NAME}-PreProd', dynamodb_billing_mode=dynamodb.BillingMode.PROVISIONED,
+            env=pre_prod_env)
 
         api_endpoint_url_env_var = f'{APPLICATION_NAME.upper()}_API_ENDPOINT_URL'
         pre_prod_smoke_test_outputs = {
