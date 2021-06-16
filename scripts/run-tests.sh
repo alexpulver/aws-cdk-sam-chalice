@@ -3,4 +3,14 @@
 set -o errexit
 set -o verbose
 
-python -m unittest discover --start-directory tests
+_targets=(api database monitoring pipeline app.py config.py stages.py)
+
+bandit --recursive "${_targets[@]}"
+black --check --diff "${_targets[@]}"
+flake8 --config .flake8 "${_targets[@]}"
+isort --settings-path .isort.cfg --check --diff "${_targets[@]}"
+mypy --config-file .mypy.ini api  # Splitting commands due to https://github.com/python/mypy/issues/4008
+mypy --config-file .mypy.ini database monitoring pipeline app.py config.py stages.py
+pylint --rcfile .pylintrc "${_targets[@]}"
+
+coverage run --rcfile .coveragerc -m unittest discover --start-directory tests

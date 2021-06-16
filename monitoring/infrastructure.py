@@ -6,16 +6,28 @@ from database.infrastructure import Database
 
 
 class Monitoring(cdk.Construct):
-
-    def __init__(self, scope: cdk.Construct, id: str, database: Database, api: Api) -> None:
+    # pylint: disable=redefined-builtin
+    # The 'id' parameter name is CDK convention.
+    def __init__(
+        self, scope: cdk.Construct, id: str, database: Database, api: Api
+    ) -> None:
         super().__init__(scope, id)
 
-        apigateway = api.chalice.sam_template.get_resource('RestAPI')
-        apigateway_metric_dimensions = {'ApiName': cdk.Fn.ref(apigateway.logical_id)}
+        apigateway = api.chalice.sam_template.get_resource("RestAPI")
+        apigateway_metric_dimensions = {"ApiName": cdk.Fn.ref(apigateway.logical_id)}
         apigateway_metric_count = cloudwatch.Metric(
-            namespace='AWS/APIGateway', metric_name='Count', dimensions=apigateway_metric_dimensions)
+            namespace="AWS/APIGateway",
+            metric_name="Count",
+            dimensions=apigateway_metric_dimensions,
+        )
         widgets = [
-            cloudwatch.SingleValueWidget(metrics=[apigateway_metric_count]),
-            cloudwatch.SingleValueWidget(metrics=[database.table.metric_consumed_read_capacity_units()])
+            cloudwatch.SingleValueWidget(
+                metrics=[apigateway_metric_count]  # type: ignore
+            ),
+            cloudwatch.SingleValueWidget(
+                metrics=[
+                    database.table.metric_consumed_read_capacity_units()  # type: ignore
+                ]
+            ),
         ]
-        cloudwatch.Dashboard(self, 'Dashboard', widgets=[widgets])
+        cloudwatch.Dashboard(self, "Dashboard", widgets=[widgets])  # type: ignore

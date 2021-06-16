@@ -1,0 +1,10 @@
+[run]
+include =
+    api
+    database
+    monitoring
+    pipeline
+    app.py
+    config.py
+    stages.py
+

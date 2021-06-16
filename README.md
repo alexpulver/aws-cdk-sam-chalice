@@ -19,15 +19,18 @@ git clone -b future https://github.com/alexpulver/aws-cdk-sam-chalice
 cd aws-cdk-sam-chalice
 
 # Create Python virtual environment and install the dependencies
-python3 -m venv .venv
+python3.7 -m venv .venv
 source .venv/bin/activate
-scripts/install-deps.sh
+./scripts/install-deps.sh
+./scripts/run-tests.sh
 
 ## Upgrading dependencies (ordered by constraints)
+pip install pip-tools==6.1.0
 pip-compile --upgrade api/runtime/requirements.in
 pip-compile --upgrade requirements.in
 pip-compile --upgrade requirements-dev.in
-scripts/install-deps.sh
+./scripts/install-deps.sh
+./scripts/run-tests.sh
 ```
 
 #### Deploy development stack

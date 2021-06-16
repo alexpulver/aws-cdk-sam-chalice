@@ -7,5 +7,4 @@ set -o verbose
 npm install
 
 # Install project dependencies
-pip install pip-tools==6.1.0
-pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt
+pip install -r api/runtime/requirements.txt -r requirements.txt -r requirements-dev.txt
