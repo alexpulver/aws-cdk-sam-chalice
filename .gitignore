@@ -27,6 +27,9 @@ __pycache__/
 # C extensions
 *.so
 
+# CDK-Dia
+diagram.png*
+
 # Coverage.py
 .coverage
 coverage.xml
