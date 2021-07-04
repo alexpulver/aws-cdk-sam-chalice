@@ -21,9 +21,23 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.277]}",
+          "iam_role_arn": "${Token[TOKEN.274]}",
           "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.268]}"
+            "TABLE_NAME": "${Token[TOKEN.265]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "AwsCdkSamChalice-Dev/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.93]}",
+          "environment_variables": {
+            "TABLE_NAME": "${Token[TOKEN.84]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10

@@ -3,14 +3,14 @@
 set -o errexit
 set -o verbose
 
-_targets=(api database monitoring pipeline app.py config.py stages.py)
+_targets=(api database monitoring app.py config.py stacks.py)
 
 bandit --recursive "${_targets[@]}"
 black --check --diff "${_targets[@]}"
 flake8 --config .flake8 "${_targets[@]}"
 isort --settings-path .isort.cfg --check --diff "${_targets[@]}"
-mypy --config-file .mypy.ini api  # Splitting commands due to https://github.com/python/mypy/issues/4008
-mypy --config-file .mypy.ini database monitoring pipeline app.py config.py stages.py
+mypy --config-file .mypy.ini api database monitoring  # Splitting commands due to https://github.com/python/mypy/issues/4008
+mypy --config-file .mypy.ini app.py config.py stacks.py
 pylint --rcfile .pylintrc "${_targets[@]}"
 safety check -r api/runtime/requirements.txt -r requirements.txt -r requirements-dev.txt
 

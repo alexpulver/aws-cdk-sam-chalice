@@ -1,3 +1,5 @@
+from typing import cast
+
 from aws_cdk import aws_cloudwatch as cloudwatch
 from aws_cdk import core as cdk
 
@@ -26,7 +28,10 @@ class Monitoring(cdk.Construct):
             ),
             cloudwatch.SingleValueWidget(
                 metrics=[
-                    database.table.metric_consumed_read_capacity_units()  # type: ignore
+                    cast(
+                        cloudwatch.IMetric,
+                        database.table.metric_consumed_read_capacity_units(),
+                    )
                 ]
             ),
         ]
