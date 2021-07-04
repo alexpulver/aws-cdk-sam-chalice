@@ -21,6 +21,7 @@ cd aws-cdk-sam-chalice
 ```bash
 python3.7 -m venv .venv
 source .venv/bin/activate
+pip install pip-tools==6.1.0  # [Optional] Needed to upgrade dependencies and cleanup unused packages
 ./scripts/install-deps.sh
 ./scripts/run-tests.sh
 ```
@@ -33,23 +34,14 @@ vi package.json  # Update "aws-cdk" package version
 
 ### [Optional] Upgrade dependencies (ordered by constraints)
 Consider [AWS CDK Toolkit (CLI)](https://docs.aws.amazon.com/cdk/latest/guide/reference.html#versioning) compatibility 
-when choosing AWS CDK packages version.
-
-Upgrade all top-level AWS CDK packages explicitly to keep their versions in sync.
-This will not be required with AWS CDK v2. See [Migrating to AWS CDK v2](https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-v2.html) 
-for details.
+when upgrading AWS CDK packages version.
 
 ```bash
-_cdk_version=CDK_VERSION
-pip install pip-tools==6.1.0
 pip-compile --upgrade api/runtime/requirements.in
-pip-compile \
-  --upgrade requirements.in \
-  --upgrade-package aws_cdk.aws_dynamodb==${_cdk_version} \
-  --upgrade-package aws_cdk.pipelines==${_cdk_version} \
-  --upgrade-package aws_cdk.core==${_cdk_version}
+pip-compile --upgrade requirements.in
 pip-compile --upgrade requirements-dev.in
 ./scripts/install-deps.sh
+pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt  # [Optional] Cleanup unused packages
 ./scripts/run-tests.sh
 ```
 
