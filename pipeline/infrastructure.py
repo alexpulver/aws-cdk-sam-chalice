@@ -36,9 +36,9 @@ class Pipeline(cdk.Stack):
             cloud_assembly_artifact=cloud_assembly_artifact,
             install_commands=[
                 "pyenv local 3.7.10",
-                "scripts/install-deps.sh",
+                "./scripts/install-deps.sh",
             ],
-            test_commands=["scripts/run-tests.sh"],
+            test_commands=["./scripts/run-tests.sh"],
             synth_command="npx cdk synth",
         )
 
