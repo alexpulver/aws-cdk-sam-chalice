@@ -42,6 +42,10 @@ class Api(cdk.Construct):
         rest_api = self.chalice.sam_template.get_resource("RestAPI")
         rest_api.tracing_enabled = True
 
+        self.endpoint_url: cdk.CfnOutput = self.chalice.sam_template.get_output(
+            "EndpointURL"
+        )
+
     @staticmethod
     def _create_chalice_stage_config(
         handler_role: iam.Role, database: Database

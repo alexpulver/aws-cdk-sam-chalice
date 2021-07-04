@@ -45,26 +45,37 @@ pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt  # [
 ./scripts/run-tests.sh
 ```
 
-## Deploy development stack
-The `AwsCdkSamChalice-Dev/Application` stack uses your default account and region.
+## Deploy the application to development environment
+The `AwsCdkSamChalice-Dev` deployment uses your default account and region.
+It consists of two stacks - stateful (database) and stateless (API and monitoring) 
 
 ```bash
-npx cdk deploy AwsCdkSamChalice-Dev/Application
+npx cdk deploy "AwsCdkSamChalice-Dev/*"
 ```
 
-Example output for `npx cdk deploy AwsCdkSamChalice-Dev/Application` stack:
+Example outputs for `npx cdk deploy "AwsCdkSamChalice-Dev/*"`:
 ```text
-AwsCdkSamChaliceDevApplication1F0BF25A.APIHandlerArn = arn:aws:lambda:eu-west-1:123456789012:function:AwsCdkSamChalice-Dev-Application-APIHandler-1PEIOK9ZRGT4D
-AwsCdkSamChaliceDevApplication1F0BF25A.APIHandlerName = AwsCdkSamChalice-Dev-Application-APIHandler-1PEIOK9ZRGT4D
-AwsCdkSamChaliceDevApplication1F0BF25A.EndpointURL = https://usuf95bc7a.execute-api.eu-west-1.amazonaws.com/v1/
-AwsCdkSamChaliceDevApplication1F0BF25A.RestAPIId = usuf95bc7a
+ ✅  AwsCdkSamChaliceDevStateful7B33C11B (AwsCdkSamChalice-Dev-Stateful)
+
+Outputs:
+AwsCdkSamChaliceDevStateful7B33C11B.ExportsOutputFnGetAttDatabaseTableF104A135ArnDAC15A6A = arn:aws:dynamodb:eu-west-1:807650736403:table/AwsCdkSamChalice-Dev-Stateful-DatabaseTableF104A135-1LVXRPCPOKVZQ
+AwsCdkSamChaliceDevStateful7B33C11B.ExportsOutputRefDatabaseTableF104A1356B7D7D8A = AwsCdkSamChalice-Dev-Stateful-DatabaseTableF104A135-1LVXRPCPOKVZQ
+```
+```text
+ ✅  AwsCdkSamChaliceDevStateless0E5B7E4B (AwsCdkSamChalice-Dev-Stateless)
+
+Outputs:
+AwsCdkSamChaliceDevStateless0E5B7E4B.APIHandlerArn = arn:aws:lambda:eu-west-1:807650736403:function:AwsCdkSamChalice-Dev-Stateless-APIHandler-PJjw0Jn7Waq0
+AwsCdkSamChaliceDevStateless0E5B7E4B.APIHandlerName = AwsCdkSamChalice-Dev-Stateless-APIHandler-PJjw0Jn7Waq0
+AwsCdkSamChaliceDevStateless0E5B7E4B.EndpointURL = https://zx5s6bum21.execute-api.eu-west-1.amazonaws.com/v1/
+AwsCdkSamChaliceDevStateless0E5B7E4B.RestAPIId = zx5s6bum21
 ```
 
-## Deploy pipeline stack
+## Deploy the pipeline
 **Prerequisites**
 - Fork the repository and create AWS CodeStar Connections [connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html) for it
-- Update `source_action` in `pipeline/infrastructure.py` with the connection, owner and repository details from previous step
-- Update `pre_prod_env` in `pipeline/infrastructure.py` with correct account and region
+- Update `source_action` in `pipeline.py` with the connection, owner and repository details from previous step
+- Update `pre_prod_env` in `pipeline.py` with correct account and region
 - Update `pipeline_env` in `app.py` with correct account and region
 
 ```bash
@@ -74,9 +85,9 @@ npx cdk deploy AwsCdkSamChalice-Pipeline
 ## Delete all stacks
 **Do not forget to delete the stacks to avoid unexpected charges**
 ```bash
-npx cdk destroy AwsCdkSamChalice-Dev/Application
+npx cdk destroy "AwsCdkSamChalice-Dev/*"
 npx cdk destroy AwsCdkSamChalice-Pipeline
-npx cdk destroy AwsCdkSamChalice-Pipeline/AwsCdkSamChalice-PreProd/Application
+npx cdk destroy "AwsCdkSamChalice-Pipeline/AwsCdkSamChalice-PreProd/*"
 ```
 
 ## Testing the web API

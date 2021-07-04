@@ -4,8 +4,8 @@ from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 
 from config import APPLICATION_NAME
-from stacks import Application
-from stacks import Pipeline
+from deployment import Deployment
+from pipeline import Pipeline
 
 app = cdk.App()
 
@@ -14,7 +14,7 @@ dev_env = cdk.Environment(
 )
 pipeline_env = cdk.Environment(account="807650736403", region="eu-west-1")
 
-Application(
+Deployment(
     app,
     f"{APPLICATION_NAME}-Dev",
     dynamodb_billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
