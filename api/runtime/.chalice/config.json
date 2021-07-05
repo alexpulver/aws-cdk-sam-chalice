@@ -71,6 +71,34 @@
           "lambda_timeout": 10
         }
       }
+    },
+    "AwsCdkSamChalice-Application-Dev/Stateless/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.95]}",
+          "environment_variables": {
+            "TABLE_NAME": "${Token[TOKEN.86]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "AwsCdkSamChalice-Pipeline/AwsCdkSamChalice-Application-PreProd/Stateless/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.276]}",
+          "environment_variables": {
+            "TABLE_NAME": "${Token[TOKEN.267]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
     }
   }
 }
