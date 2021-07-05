@@ -1,1 +1,0 @@
-APPLICATION_NAME = "AwsCdkSamChalice"

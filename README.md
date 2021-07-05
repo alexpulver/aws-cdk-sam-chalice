@@ -46,29 +46,29 @@ pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt  # [
 ```
 
 ## Deploy the application to development environment
-The `AwsCdkSamChalice-Dev` deployment uses your default account and region.
+The `UserManagementBackend-Dev` deployment uses your default account and region.
 It consists of two stacks - stateful (database) and stateless (API and monitoring) 
 
 ```bash
-npx cdk deploy "AwsCdkSamChalice-Dev/*"
+npx cdk deploy "UserManagementBackend-Dev/*"
 ```
 
-Example outputs for `npx cdk deploy "AwsCdkSamChalice-Dev/*"`:
+Example outputs for `npx cdk deploy "UserManagementBackend-Dev/*"`:
 ```text
- ✅  AwsCdkSamChaliceDevStateful7B33C11B (AwsCdkSamChalice-Dev-Stateful)
+ ✅  UserManagementBackendDevStateful7B33C11B (UserManagementBackend-Dev-Stateful)
 
 Outputs:
-AwsCdkSamChaliceDevStateful7B33C11B.ExportsOutputFnGetAttDatabaseTableF104A135ArnDAC15A6A = arn:aws:dynamodb:eu-west-1:807650736403:table/AwsCdkSamChalice-Dev-Stateful-DatabaseTableF104A135-1LVXRPCPOKVZQ
-AwsCdkSamChaliceDevStateful7B33C11B.ExportsOutputRefDatabaseTableF104A1356B7D7D8A = AwsCdkSamChalice-Dev-Stateful-DatabaseTableF104A135-1LVXRPCPOKVZQ
+UserManagementBackendDevStateful7B33C11B.ExportsOutputFnGetAttDatabaseTableF104A135ArnDAC15A6A = arn:aws:dynamodb:eu-west-1:807650736403:table/UserManagementBackend-Dev-Stateful-DatabaseTableF104A135-1LVXRPCPOKVZQ
+UserManagementBackendDevStateful7B33C11B.ExportsOutputRefDatabaseTableF104A1356B7D7D8A = UserManagementBackend-Dev-Stateful-DatabaseTableF104A135-1LVXRPCPOKVZQ
 ```
 ```text
- ✅  AwsCdkSamChaliceDevStateless0E5B7E4B (AwsCdkSamChalice-Dev-Stateless)
+ ✅  UserManagementBackendDevStateless0E5B7E4B (UserManagementBackend-Dev-Stateless)
 
 Outputs:
-AwsCdkSamChaliceDevStateless0E5B7E4B.APIHandlerArn = arn:aws:lambda:eu-west-1:807650736403:function:AwsCdkSamChalice-Dev-Stateless-APIHandler-PJjw0Jn7Waq0
-AwsCdkSamChaliceDevStateless0E5B7E4B.APIHandlerName = AwsCdkSamChalice-Dev-Stateless-APIHandler-PJjw0Jn7Waq0
-AwsCdkSamChaliceDevStateless0E5B7E4B.EndpointURL = https://zx5s6bum21.execute-api.eu-west-1.amazonaws.com/v1/
-AwsCdkSamChaliceDevStateless0E5B7E4B.RestAPIId = zx5s6bum21
+UserManagementBackendDevStateless0E5B7E4B.APIHandlerArn = arn:aws:lambda:eu-west-1:807650736403:function:UserManagementBackend-Dev-Stateless-APIHandler-PJjw0Jn7Waq0
+UserManagementBackendDevStateless0E5B7E4B.APIHandlerName = UserManagementBackend-Dev-Stateless-APIHandler-PJjw0Jn7Waq0
+UserManagementBackendDevStateless0E5B7E4B.EndpointURL = https://zx5s6bum21.execute-api.eu-west-1.amazonaws.com/v1/
+UserManagementBackendDevStateless0E5B7E4B.RestAPIId = zx5s6bum21
 ```
 
 ## Deploy the pipeline
@@ -79,15 +79,15 @@ AwsCdkSamChaliceDevStateless0E5B7E4B.RestAPIId = zx5s6bum21
 - Update `pipeline_env` in `app.py` with correct account and region
 
 ```bash
-npx cdk deploy AwsCdkSamChalice-Pipeline
+npx cdk deploy UserManagementBackend-Pipeline
 ```
 
 ## Delete all stacks
 **Do not forget to delete the stacks to avoid unexpected charges**
 ```bash
-npx cdk destroy "AwsCdkSamChalice-Dev/*"
-npx cdk destroy AwsCdkSamChalice-Pipeline
-npx cdk destroy "AwsCdkSamChalice-Pipeline/AwsCdkSamChalice-PreProd/*"
+npx cdk destroy "UserManagementBackend-Dev/*"
+npx cdk destroy UserManagementBackend-Pipeline
+npx cdk destroy "UserManagementBackend-Pipeline/UserManagementBackend-PreProd/*"
 ```
 
 ## Testing the web API

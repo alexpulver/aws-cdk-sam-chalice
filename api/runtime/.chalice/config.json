@@ -99,6 +99,34 @@
           "lambda_timeout": 10
         }
       }
+    },
+    "UserManagementBackend-Dev/Stateless/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.89]}",
+          "environment_variables": {
+            "TABLE_NAME": "${Token[TOKEN.80]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
+    },
+    "UserManagementBackend-Pipeline/UserManagementBackend-PreProd/Stateless/Api": {
+      "api_gateway_stage": "v1",
+      "lambda_functions": {
+        "api_handler": {
+          "manage_iam_role": false,
+          "iam_role_arn": "${Token[TOKEN.270]}",
+          "environment_variables": {
+            "TABLE_NAME": "${Token[TOKEN.261]}"
+          },
+          "lambda_memory_size": 128,
+          "lambda_timeout": 10
+        }
+      }
     }
   }
 }

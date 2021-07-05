@@ -8,8 +8,7 @@ from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 from aws_cdk import pipelines
 
-from config import APPLICATION_NAME
-from deployment import Application
+from deployment import UserManagementBackend
 
 
 class Pipeline(cdk.Stack):
@@ -64,14 +63,16 @@ class Pipeline(cdk.Stack):
 
     def _add_pre_prod_stage(self, cdk_pipeline: pipelines.CdkPipeline) -> None:
         pre_prod_env = cdk.Environment(account="807650736403", region="eu-west-1")
-        pre_prod_application_stage = Application(
+        pre_prod_application_stage = UserManagementBackend(
             self,
-            f"{APPLICATION_NAME}-Application-PreProd",
+            f"{UserManagementBackend.__name__}-PreProd",
             dynamodb_billing_mode=dynamodb.BillingMode.PROVISIONED,
             env=pre_prod_env,
         )
 
-        api_endpoint_url_env_var = f"{APPLICATION_NAME.upper()}_API_ENDPOINT_URL"
+        api_endpoint_url_env_var = (
+            f"{UserManagementBackend.__name__.upper()}_API_ENDPOINT_URL"
+        )
         pre_prod_smoke_test_outputs = {
             api_endpoint_url_env_var: cdk_pipeline.stack_output(
                 pre_prod_application_stage.api_endpoint_url

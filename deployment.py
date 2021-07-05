@@ -8,7 +8,7 @@ from database.infrastructure import Database
 from monitoring.infrastructure import Monitoring
 
 
-class Application(cdk.Stage):
+class UserManagementBackend(cdk.Stage):
     # pylint: disable=redefined-builtin
     # The 'id' parameter name is CDK convention.
     def __init__(
