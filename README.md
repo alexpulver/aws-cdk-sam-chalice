@@ -1,4 +1,4 @@
-# Note: The most recent version of the project can be found on [future](https://github.com/alexpulver/aws-cdk-sam-chalice/tree/future) branch
+# Note: The most recent version of the project is available on the [future](https://github.com/alexpulver/aws-cdk-sam-chalice/tree/future) branch
 
 ## Example project for working with AWS CDK, AWS SAM and AWS Chalice
 
