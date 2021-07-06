@@ -1,4 +1,6 @@
-# Example project for working with AWS CDK, AWS SAM and AWS Chalice
+# Note: The most recent version of the project can be found on [future](https://github.com/alexpulver/aws-cdk-sam-chalice/tree/future) branch
+
+## Example project for working with AWS CDK, AWS SAM and AWS Chalice
 
 This project shows how AWS CDK, AWS SAM and AWS Chalice can be used
 together to deliver a service using CDK for building the broader service
@@ -9,7 +11,7 @@ The service is based on Amazon API Gateway and AWS Lambda.
 The web API provides basic CRUD operations for managing users in a 
 DynamoDB table.
 
-#### Setting up development environment
+### Setting up development environment
 
 See [Getting Started With the AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
 for additional details and prerequisites
@@ -29,7 +31,7 @@ pip install -r infra/requirements.txt
 pip install -r web-api/requirements.txt
 ```
 
-#### Synthesize and deploy development stack
+### Synthesize and deploy development stack
 
 The `WebApiDev` stack uses your current AWS profile account and credentials.
 
@@ -55,7 +57,7 @@ charges:**
 cdk destroy WebApiDev
 ```
 
-#### Testing the web API
+### Testing the web API
 
 Below are examples that show the available resources and how to use them:
 
