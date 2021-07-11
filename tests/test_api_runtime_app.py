@@ -19,7 +19,7 @@ class AppTestCase(unittest.TestCase):
                 f"/users/{username}",
                 headers={"Content-Type": "application/json"},
             )
-            self.assertEqual(response.json_body, user)
+        self.assertEqual(response.json_body, user)
 
 
 if __name__ == '__main__':
