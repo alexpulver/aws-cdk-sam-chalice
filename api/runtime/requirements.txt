@@ -8,9 +8,9 @@ attrs==20.3.0
     # via chalice
 blessed==1.17.6
     # via inquirer
-boto3==1.17.72
+boto3==1.17.109
     # via -r api/runtime/requirements.in
-botocore==1.20.72
+botocore==1.20.109
     # via
     #   boto3
     #   chalice
@@ -43,7 +43,7 @@ six==1.16.0
     #   blessed
     #   chalice
     #   python-dateutil
-urllib3==1.26.4
+urllib3==1.26.6
     # via botocore
 wcwidth==0.2.5
     # via blessed

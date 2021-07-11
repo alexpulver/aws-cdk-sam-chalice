@@ -1,5 +1,3 @@
-from typing import cast
-
 from aws_cdk import aws_cloudwatch as cloudwatch
 from aws_cdk import core as cdk
 
@@ -23,16 +21,9 @@ class Monitoring(cdk.Construct):
             dimensions=apigateway_metric_dimensions,
         )
         widgets = [
+            cloudwatch.SingleValueWidget(metrics=[apigateway_metric_count]),
             cloudwatch.SingleValueWidget(
-                metrics=[apigateway_metric_count]  # type: ignore
-            ),
-            cloudwatch.SingleValueWidget(
-                metrics=[
-                    cast(
-                        cloudwatch.IMetric,
-                        database.table.metric_consumed_read_capacity_units(),
-                    )
-                ]
+                metrics=[database.table.metric_consumed_read_capacity_units()]
             ),
         ]
-        cloudwatch.Dashboard(self, "Dashboard", widgets=[widgets])  # type: ignore
+        cloudwatch.Dashboard(self, "Dashboard", widgets=[widgets])

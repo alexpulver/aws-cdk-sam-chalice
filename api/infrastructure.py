@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Dict, cast
+from typing import Any, Dict
 
 from aws_cdk import aws_iam as iam
 from aws_cdk import core as cdk
@@ -26,11 +26,11 @@ class API(cdk.Construct):
         handler_role = iam.Role(
             self,
             "HandlerRole",
-            assumed_by=cast(iam.IPrincipal, service_principal),
+            assumed_by=service_principal,
             managed_policies=[policy],
         )
 
-        database.table.grant_read_write_data(cast(iam.IGrantable, handler_role))
+        database.table.grant_read_write_data(handler_role)
 
         chalice_stage_config = API._create_chalice_stage_config(handler_role, database)
         self.chalice = Chalice(

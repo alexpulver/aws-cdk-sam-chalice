@@ -45,7 +45,7 @@ class Pipeline(cdk.Stack):
             self,
             "CdkPipeline",
             source_action=source_action,
-            synth_action=synth_action,  # type: ignore
+            synth_action=synth_action,
             single_publisher_per_type=True,
             cdk_cli_version=Pipeline._get_cdk_cli_version(),
             cloud_assembly_artifact=cloud_assembly_artifact,
@@ -86,4 +86,4 @@ class Pipeline(cdk.Stack):
         )
 
         pre_prod_stage = cdk_pipeline.add_application_stage(pre_prod_application_stage)
-        pre_prod_stage.add_actions(pre_prod_smoke_test_action)  # type: ignore
+        pre_prod_stage.add_actions(pre_prod_smoke_test_action)
