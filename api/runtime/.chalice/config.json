@@ -1,106 +1,8 @@
 {
   "version": "2.0",
-  "app_name": "AwsCdkSamChalice",
+  "app_name": "UserManagementBackendAPI",
   "stages": {
-    "AwsCdkSamChalice-Dev/Application/Api": {
-      "api_gateway_stage": "v1",
-      "lambda_functions": {
-        "api_handler": {
-          "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.96]}",
-          "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.87]}"
-          },
-          "lambda_memory_size": 128,
-          "lambda_timeout": 10
-        }
-      }
-    },
-    "AwsCdkSamChalice-Pipeline/AwsCdkSamChalice-PreProd/Application/Api": {
-      "api_gateway_stage": "v1",
-      "lambda_functions": {
-        "api_handler": {
-          "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.272]}",
-          "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.263]}"
-          },
-          "lambda_memory_size": 128,
-          "lambda_timeout": 10
-        }
-      }
-    },
-    "AwsCdkSamChalice-Dev/Api": {
-      "api_gateway_stage": "v1",
-      "lambda_functions": {
-        "api_handler": {
-          "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.91]}",
-          "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.82]}"
-          },
-          "lambda_memory_size": 128,
-          "lambda_timeout": 10
-        }
-      }
-    },
-    "AwsCdkSamChalice-Dev/Stateless/Api": {
-      "api_gateway_stage": "v1",
-      "lambda_functions": {
-        "api_handler": {
-          "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.90]}",
-          "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.81]}"
-          },
-          "lambda_memory_size": 128,
-          "lambda_timeout": 10
-        }
-      }
-    },
-    "AwsCdkSamChalice-Pipeline/AwsCdkSamChalice-PreProd/Stateless/Api": {
-      "api_gateway_stage": "v1",
-      "lambda_functions": {
-        "api_handler": {
-          "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.271]}",
-          "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.262]}"
-          },
-          "lambda_memory_size": 128,
-          "lambda_timeout": 10
-        }
-      }
-    },
-    "AwsCdkSamChalice-Application-Dev/Stateless/Api": {
-      "api_gateway_stage": "v1",
-      "lambda_functions": {
-        "api_handler": {
-          "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.95]}",
-          "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.86]}"
-          },
-          "lambda_memory_size": 128,
-          "lambda_timeout": 10
-        }
-      }
-    },
-    "AwsCdkSamChalice-Pipeline/AwsCdkSamChalice-Application-PreProd/Stateless/Api": {
-      "api_gateway_stage": "v1",
-      "lambda_functions": {
-        "api_handler": {
-          "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.276]}",
-          "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.267]}"
-          },
-          "lambda_memory_size": 128,
-          "lambda_timeout": 10
-        }
-      }
-    },
-    "UserManagementBackend-Dev/Stateless/Api": {
+    "UserManagementBackend-Dev/Stateless/API": {
       "api_gateway_stage": "v1",
       "lambda_functions": {
         "api_handler": {
@@ -114,7 +16,7 @@
         }
       }
     },
-    "UserManagementBackend-Pipeline/UserManagementBackend-PreProd/Stateless/Api": {
+    "UserManagementBackend-Pipeline/UserManagementBackend-PreProd/Stateless/API": {
       "api_gateway_stage": "v1",
       "lambda_functions": {
         "api_handler": {

@@ -1,23 +1,22 @@
-from abc import ABC
-from abc import abstractmethod
 from typing import Any, Dict, Optional
 
+from chalicelib.database_engine import DatabaseEngineInterface
 
-class UsersDatabase(ABC):
-    @abstractmethod
+
+class UsersDatabase:
+    def __init__(self, *, database_engine: DatabaseEngineInterface) -> None:
+        self._database_engine = database_engine
+
     def create_user(
         self, username: str, user_attributes: Dict[str, str]
     ) -> Dict[str, str]:
-        pass
+        return self._database_engine.create_user(username, user_attributes)
 
-    @abstractmethod
     def update_user(self, username: str, user_attributes: Dict[str, str]) -> Any:
-        pass
+        return self._database_engine.update_user(username, user_attributes)
 
-    @abstractmethod
     def get_user(self, username: str) -> Optional[Dict[str, Any]]:
-        pass
+        return self._database_engine.get_user(username)
 
-    @abstractmethod
     def delete_user(self, username: str) -> None:
-        pass
+        self._database_engine.delete_user(username)

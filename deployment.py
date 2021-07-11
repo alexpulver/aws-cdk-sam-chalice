@@ -3,7 +3,7 @@ from typing import Any
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 
-from api.infrastructure import Api
+from api.infrastructure import API
 from database.infrastructure import Database
 from monitoring.infrastructure import Monitoring
 
@@ -27,7 +27,7 @@ class UserManagementBackend(cdk.Stage):
         )
 
         stateless = cdk.Stack(self, "Stateless")
-        api = Api(stateless, "Api", database)
-        Monitoring(stateless, "Monitoring", database, api)
+        api = API(stateless, "API", database=database)
+        Monitoring(stateless, "Monitoring", database=database, api=api)
 
         self.api_endpoint_url = api.endpoint_url

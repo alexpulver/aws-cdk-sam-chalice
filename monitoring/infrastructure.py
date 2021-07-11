@@ -3,7 +3,7 @@ from typing import cast
 from aws_cdk import aws_cloudwatch as cloudwatch
 from aws_cdk import core as cdk
 
-from api.infrastructure import Api
+from api.infrastructure import API
 from database.infrastructure import Database
 
 
@@ -11,7 +11,7 @@ class Monitoring(cdk.Construct):
     # pylint: disable=redefined-builtin
     # The 'id' parameter name is CDK convention.
     def __init__(
-        self, scope: cdk.Construct, id: str, database: Database, api: Api
+        self, scope: cdk.Construct, id: str, *, database: Database, api: API
     ) -> None:
         super().__init__(scope, id)
 

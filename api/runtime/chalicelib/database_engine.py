@@ -1,10 +1,31 @@
+from abc import ABC
+from abc import abstractmethod
 from typing import Any, Dict, Optional
 
 import boto3
-from chalicelib.users_database import UsersDatabase
 
 
-class DynamoDbUsersDatabase(UsersDatabase):
+class DatabaseEngineInterface(ABC):
+    @abstractmethod
+    def create_user(
+        self, username: str, user_attributes: Dict[str, str]
+    ) -> Dict[str, str]:
+        pass
+
+    @abstractmethod
+    def update_user(self, username: str, user_attributes: Dict[str, str]) -> Any:
+        pass
+
+    @abstractmethod
+    def get_user(self, username: str) -> Optional[Dict[str, Any]]:
+        pass
+
+    @abstractmethod
+    def delete_user(self, username: str) -> None:
+        pass
+
+
+class DynamoDBDatabaseEngine(DatabaseEngineInterface):
     def __init__(self, table_name: str):
         dynamodb = boto3.resource("dynamodb")
         self._table = dynamodb.Table(table_name)
