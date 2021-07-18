@@ -21,6 +21,7 @@ class Database(cdk.Construct):
             self,
             "Table",
             billing_mode=dynamodb_billing_mode,
+            encryption=dynamodb.TableEncryption.DEFAULT,
             partition_key=partition_key,
             removal_policy=cdk.RemovalPolicy.DESTROY,
         )

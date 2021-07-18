@@ -5,7 +5,7 @@ from chalice import Response
 from chalicelib.database_engine import DynamoDBDatabaseEngine
 from chalicelib.users_database import UsersDatabase
 
-app = Chalice(app_name="UserManagementBackendAPI")
+app = Chalice(app_name="API")
 
 
 @app.route("/users", methods=["POST"])

@@ -15,7 +15,14 @@ class API(cdk.Construct):
 
     # pylint: disable=redefined-builtin
     # The 'id' parameter name is CDK convention.
-    def __init__(self, scope: cdk.Construct, id: str, *, database: Database) -> None:
+    def __init__(
+        self,
+        scope: cdk.Construct,
+        id: str,
+        *,
+        database: Database,
+        lambda_reserved_concurrent_executions: int,
+    ) -> None:
         super().__init__(scope, id)
 
         service_principal = iam.ServicePrincipal("lambda.amazonaws.com")
@@ -43,6 +50,11 @@ class API(cdk.Construct):
         rest_api.tracing_enabled = True
         # Workaround for https://github.com/aws/chalice/issues/1764
         rest_api.add_property_override("EndpointConfiguration", {"Type": "EDGE"})
+        handler_function = self.chalice.sam_template.get_resource("APIHandler")
+        handler_function.add_property_override(
+            "ReservedConcurrentExecutions",
+            lambda_reserved_concurrent_executions
+        )
 
         self.endpoint_url: cdk.CfnOutput = self.chalice.sam_template.get_output(
             "EndpointURL"
