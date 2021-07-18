@@ -18,7 +18,8 @@ class Pipeline(cdk.Stack):
         codepipeline_source = pipelines.CodePipelineSource.connection(
             "alexpulver/aws-cdk-sam-chalice",
             "future",
-            connection_arn="arn:aws:codestar-connections:eu-west-1:807650736403:connection/1f244295-871f-411f-afb1-e6ca987858b6"
+            # pylint: disable=line-too-long
+            connection_arn="arn:aws:codestar-connections:eu-west-1:807650736403:connection/1f244295-871f-411f-afb1-e6ca987858b6",
         )
         synth_commands = [
             "pyenv local 3.7.10",
@@ -27,9 +28,7 @@ class Pipeline(cdk.Stack):
             "npx cdk synth",
         ]
         synth_shell_step = pipelines.ShellStep(
-            "Synth",
-            input=codepipeline_source,
-            commands=synth_commands
+            "Synth", input=codepipeline_source, commands=synth_commands
         )
         codepipeline = pipelines.CodePipeline(
             self,
@@ -58,7 +57,9 @@ class Pipeline(cdk.Stack):
         smoke_test_commands = [f"curl ${api_endpoint_url_env_var}"]
         smoke_test_shell_step = pipelines.ShellStep(
             "SmokeTest",
-            env_from_cfn_outputs={api_endpoint_url_env_var: pre_prod_stage.api_endpoint_url},
+            env_from_cfn_outputs={
+                api_endpoint_url_env_var: pre_prod_stage.api_endpoint_url
+            },
             commands=smoke_test_commands,
         )
 
