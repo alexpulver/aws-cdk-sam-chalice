@@ -20,7 +20,7 @@ class Dev(cdk.Stage):
             self,
             "Stateless",
             database=stateful.database,
-            lambda_reserved_concurrent_executions=1,
+            api_lambda_reserved_concurrency=1,
         )
         self.api_endpoint_url = stateless.api_endpoint_url
 
@@ -38,6 +38,6 @@ class PreProd(cdk.Stage):
             self,
             "Stateless",
             database=stateful.database,
-            lambda_reserved_concurrent_executions=10,
+            api_lambda_reserved_concurrency=10,
         )
         self.api_endpoint_url = stateless.api_endpoint_url

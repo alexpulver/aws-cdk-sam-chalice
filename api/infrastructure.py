@@ -1,11 +1,10 @@
 from pathlib import Path
 from typing import Any, Dict
 
+from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import aws_iam as iam
 from aws_cdk import core as cdk
 from cdk_chalice import Chalice
-
-from database.infrastructure import Database
 
 
 class API(cdk.Construct):
@@ -20,8 +19,8 @@ class API(cdk.Construct):
         scope: cdk.Construct,
         id: str,
         *,
-        database: Database,
-        lambda_reserved_concurrent_executions: int,
+        dynamodb_table: dynamodb.Table,
+        lambda_reserved_concurrency: int,
     ) -> None:
         super().__init__(scope, id)
 
@@ -37,9 +36,11 @@ class API(cdk.Construct):
             managed_policies=[policy],
         )
 
-        database.table.grant_read_write_data(handler_role)
+        dynamodb_table.grant_read_write_data(handler_role)
 
-        chalice_stage_config = API._create_chalice_stage_config(handler_role, database)
+        chalice_stage_config = API._create_chalice_stage_config(
+            handler_role, dynamodb_table
+        )
         self.chalice = Chalice(
             self,
             "Chalice",
@@ -52,8 +53,7 @@ class API(cdk.Construct):
         rest_api.add_property_override("EndpointConfiguration", {"Type": "EDGE"})
         handler_function = self.chalice.sam_template.get_resource("APIHandler")
         handler_function.add_property_override(
-            "ReservedConcurrentExecutions",
-            lambda_reserved_concurrent_executions
+            "ReservedConcurrentExecutions", lambda_reserved_concurrency
         )
 
         self.endpoint_url: cdk.CfnOutput = self.chalice.sam_template.get_output(
@@ -62,7 +62,7 @@ class API(cdk.Construct):
 
     @staticmethod
     def _create_chalice_stage_config(
-        handler_role: iam.Role, database: Database
+        handler_role: iam.Role, dynamodb_table: dynamodb.Table
     ) -> Dict[str, Any]:
         chalice_stage_config = {
             "api_gateway_stage": "v1",
@@ -70,7 +70,7 @@ class API(cdk.Construct):
                 "api_handler": {
                     "manage_iam_role": False,
                     "iam_role_arn": handler_role.role_arn,
-                    "environment_variables": {"TABLE_NAME": database.table.table_name},
+                    "environment_variables": {"TABLE_NAME": dynamodb_table.table_name},
                     "lambda_memory_size": API._LAMBDA_MEMORY_SIZE,
                     "lambda_timeout": API._LAMBDA_TIMEOUT,
                 }

@@ -17,7 +17,7 @@ class Stateful(cdk.Stack):
         id: str,
         *,
         dynamodb_billing_mode: dynamodb.BillingMode,
-        **kwargs: Any
+        **kwargs: Any,
     ):
         super().__init__(scope, id, **kwargs)
 
@@ -30,21 +30,21 @@ class Stateless(cdk.Stack):
     # pylint: disable=redefined-builtin
     # The 'id' parameter name is CDK convention.
     def __init__(
-            self,
-            scope: cdk.Construct,
-            id: str,
-            *,
-            database: Database,
-            lambda_reserved_concurrent_executions: int,
-            **kwargs: Any,
+        self,
+        scope: cdk.Construct,
+        id: str,
+        *,
+        database: Database,
+        api_lambda_reserved_concurrency: int,
+        **kwargs: Any,
     ):
         super().__init__(scope, id, **kwargs)
 
         api = API(
             self,
             "API",
-            database=database,
-            lambda_reserved_concurrent_executions=lambda_reserved_concurrent_executions
+            dynamodb_table=database.table,
+            lambda_reserved_concurrency=api_lambda_reserved_concurrency,
         )
         Monitoring(self, "Monitoring", database=database, api=api)
 

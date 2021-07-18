@@ -37,7 +37,12 @@ class APITestCase(unittest.TestCase):
             "Database",
             dynamodb_billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST
         )
-        API(self.stack, "API", database=database)
+        API(
+            self.stack,
+            "API",
+            dynamodb_table=database.table,
+            lambda_reserved_concurrency=1,
+        )
 
         cloud_assembly = self.app.synth()
         template = cloud_assembly.get_stack_by_name(self.stack.stack_name).template
