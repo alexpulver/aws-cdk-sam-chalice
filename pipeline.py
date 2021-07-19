@@ -2,11 +2,11 @@ import json
 from pathlib import Path
 from typing import Any
 
+from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 from aws_cdk import pipelines
 
-from config import APP_NAME
-from stages import PreProd
+from deployment import UserManagementBackend
 
 
 class Pipeline(cdk.Stack):
@@ -35,7 +35,7 @@ class Pipeline(cdk.Stack):
             synth=synth_shell_step,
         )
 
-        self._add_pre_prod_stage(codepipeline)
+        self._add_prod_stage(codepipeline)
 
     @staticmethod
     def _get_cdk_cli_version() -> str:
@@ -45,18 +45,23 @@ class Pipeline(cdk.Stack):
         cdk_cli_version = str(package_json["devDependencies"]["aws-cdk"])
         return cdk_cli_version
 
-    def _add_pre_prod_stage(self, codepipeline: pipelines.CodePipeline) -> None:
-        pre_prod_env = cdk.Environment(account="807650736403", region="eu-west-1")
-        pre_prod_stage = PreProd(self, f"{APP_NAME}-PreProd", env=pre_prod_env)
-
-        api_endpoint_url_env_var = f"{APP_NAME.upper()}_API_ENDPOINT_URL"
+    def _add_prod_stage(self, codepipeline: pipelines.CodePipeline) -> None:
+        prod_stage = UserManagementBackend(
+            self,
+            f"{UserManagementBackend.__name__}-Prod",
+            env=cdk.Environment(account="807650736403", region="eu-west-1"),
+            api_lambda_reserved_concurrency=10,
+            database_dynamodb_billing_mode=dynamodb.BillingMode.PROVISIONED,
+        )
+        api_endpoint_url_env_var = (
+            f"{UserManagementBackend.__name__.upper()}_API_ENDPOINT_URL"
+        )
         smoke_test_commands = [f"curl ${api_endpoint_url_env_var}"]
         smoke_test_shell_step = pipelines.ShellStep(
             "SmokeTest",
             env_from_cfn_outputs={
-                api_endpoint_url_env_var: pre_prod_stage.api_endpoint_url
+                api_endpoint_url_env_var: prod_stage.api_endpoint_url
             },
             commands=smoke_test_commands,
         )
-
-        codepipeline.add_stage(pre_prod_stage, post=[smoke_test_shell_step])
+        codepipeline.add_stage(prod_stage, post=[smoke_test_shell_step])

@@ -8,19 +8,45 @@ from database.infrastructure import Database
 from monitoring.infrastructure import Monitoring
 
 
+class UserManagementBackend(cdk.Stage):
+    def __init__(
+        self,
+        scope: cdk.Construct,
+        id_: str,
+        *,
+        database_dynamodb_billing_mode: dynamodb.BillingMode,
+        api_lambda_reserved_concurrency: int,
+        **kwargs: Any,
+    ):
+        super().__init__(scope, id_, **kwargs)
+
+        stateful = Stateful(
+            self,
+            "Stateful",
+            database_dynamodb_billing_mode=database_dynamodb_billing_mode,
+        )
+        stateless = Stateless(
+            self,
+            "Stateless",
+            database=stateful.database,
+            api_lambda_reserved_concurrency=api_lambda_reserved_concurrency,
+        )
+        self.api_endpoint_url = stateless.api_endpoint_url
+
+
 class Stateful(cdk.Stack):
     def __init__(
         self,
         scope: cdk.Construct,
         id_: str,
         *,
-        dynamodb_billing_mode: dynamodb.BillingMode,
+        database_dynamodb_billing_mode: dynamodb.BillingMode,
         **kwargs: Any,
     ):
         super().__init__(scope, id_, **kwargs)
 
         self.database = Database(
-            self, "Database", dynamodb_billing_mode=dynamodb_billing_mode
+            self, "Database", dynamodb_billing_mode=database_dynamodb_billing_mode
         )
 
 

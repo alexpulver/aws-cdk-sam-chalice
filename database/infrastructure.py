@@ -9,7 +9,7 @@ class Database(cdk.Construct):
         id_: str,
         *,
         dynamodb_billing_mode: dynamodb.BillingMode
-    ) -> None:
+    ):
         super().__init__(scope, id_)
 
         partition_key = dynamodb.Attribute(

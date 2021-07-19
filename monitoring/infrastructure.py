@@ -6,9 +6,7 @@ from database.infrastructure import Database
 
 
 class Monitoring(cdk.Construct):
-    def __init__(
-        self, scope: cdk.Construct, id_: str, *, database: Database, api: API
-    ) -> None:
+    def __init__(self, scope: cdk.Construct, id_: str, *, database: Database, api: API):
         super().__init__(scope, id_)
 
         apigateway = api.chalice.sam_template.get_resource("RestAPI")

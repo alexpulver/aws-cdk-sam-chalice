@@ -19,7 +19,7 @@ class API(cdk.Construct):
         *,
         dynamodb_table: dynamodb.Table,
         lambda_reserved_concurrency: int,
-    ) -> None:
+    ):
         super().__init__(scope, id_)
 
         service_principal = iam.ServicePrincipal("lambda.amazonaws.com")
