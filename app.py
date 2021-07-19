@@ -8,6 +8,7 @@ from pipeline import Pipeline
 
 app = cdk.App()
 
+# Development
 UserManagementBackend(
     app,
     f"{UserManagementBackend.__name__}-Dev",
@@ -18,6 +19,8 @@ UserManagementBackend(
     api_lambda_reserved_concurrency=1,
     database_dynamodb_billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
 )
+
+# Production pipeline
 Pipeline(
     app,
     f"{UserManagementBackend.__name__}-Pipeline",
