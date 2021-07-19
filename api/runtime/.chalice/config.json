@@ -7,23 +7,23 @@
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.98]}",
+          "iam_role_arn": "${Token[TOKEN.90]}",
           "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.89]}"
+            "TABLE_NAME": "${Token[TOKEN.81]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
         }
       }
     },
-    "UserManagementBackend-Pipeline/UserManagementBackend-PreProd/Stateless/API": {
+    "UserManagementBackend-Pipeline/UserManagementBackend-Prod/Stateless/API": {
       "api_gateway_stage": "v1",
       "lambda_functions": {
         "api_handler": {
           "manage_iam_role": false,
-          "iam_role_arn": "${Token[TOKEN.145]}",
+          "iam_role_arn": "${Token[TOKEN.137]}",
           "environment_variables": {
-            "TABLE_NAME": "${Token[TOKEN.136]}"
+            "TABLE_NAME": "${Token[TOKEN.128]}"
           },
           "lambda_memory_size": 128,
           "lambda_timeout": 10
