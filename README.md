@@ -74,9 +74,9 @@ UserManagementBackendDevStateless0E5B7E4B.RestAPIId = zx5s6bum21
 ## Deploy the pipeline
 **Prerequisites**
 - Fork the repository and create AWS CodeStar Connections [connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html) for it
-- Update `source_action` in `pipeline.py` with the connection, owner and repository details from previous step
-- Update `pre_prod_env` in `pipeline.py` with correct account and region
-- Update `pipeline_env` in `app.py` with correct account and region
+- Update `codepipeline_source` in `pipeline.py` with the connection, owner and repository details from previous step
+- Update `prod_stage` in `pipeline.py` with correct account and region
+- Update `Pipeline` in `app.py` with correct account and region
 
 ```bash
 npx cdk deploy UserManagementBackend-Pipeline
@@ -87,7 +87,7 @@ npx cdk deploy UserManagementBackend-Pipeline
 ```bash
 npx cdk destroy "UserManagementBackend-Dev/*"
 npx cdk destroy UserManagementBackend-Pipeline
-npx cdk destroy "UserManagementBackend-Pipeline/UserManagementBackend-PreProd/*"
+npx cdk destroy "UserManagementBackend-Pipeline/UserManagementBackend-Prod/*"
 ```
 
 ## Testing the web API
