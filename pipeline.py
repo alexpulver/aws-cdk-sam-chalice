@@ -32,8 +32,6 @@ class Pipeline(cdk.Stack):
             self,
             "CodePipeline",
             cli_version=Pipeline._get_cdk_cli_version(),
-            cross_account_keys=True,
-            publish_assets_in_parallel=False,
             synth=synth_shell_step,
         )
 
