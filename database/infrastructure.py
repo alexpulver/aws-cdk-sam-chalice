@@ -3,16 +3,14 @@ from aws_cdk import core as cdk
 
 
 class Database(cdk.Construct):
-    # pylint: disable=redefined-builtin
-    # The 'id' parameter name is CDK convention.
     def __init__(
         self,
         scope: cdk.Construct,
-        id: str,
+        id_: str,
         *,
         dynamodb_billing_mode: dynamodb.BillingMode
     ) -> None:
-        super().__init__(scope, id)
+        super().__init__(scope, id_)
 
         partition_key = dynamodb.Attribute(
             name="username", type=dynamodb.AttributeType.STRING

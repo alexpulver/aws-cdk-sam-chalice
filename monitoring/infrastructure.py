@@ -6,12 +6,10 @@ from database.infrastructure import Database
 
 
 class Monitoring(cdk.Construct):
-    # pylint: disable=redefined-builtin
-    # The 'id' parameter name is CDK convention.
     def __init__(
-        self, scope: cdk.Construct, id: str, *, database: Database, api: API
+        self, scope: cdk.Construct, id_: str, *, database: Database, api: API
     ) -> None:
-        super().__init__(scope, id)
+        super().__init__(scope, id_)
 
         apigateway = api.chalice.sam_template.get_resource("RestAPI")
         apigateway_metric_dimensions = {"ApiName": cdk.Fn.ref(apigateway.logical_id)}

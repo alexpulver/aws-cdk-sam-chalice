@@ -9,17 +9,15 @@ from monitoring.infrastructure import Monitoring
 
 
 class Stateful(cdk.Stack):
-    # pylint: disable=redefined-builtin
-    # The 'id' parameter name is CDK convention.
     def __init__(
         self,
         scope: cdk.Construct,
-        id: str,
+        id_: str,
         *,
         dynamodb_billing_mode: dynamodb.BillingMode,
         **kwargs: Any,
     ):
-        super().__init__(scope, id, **kwargs)
+        super().__init__(scope, id_, **kwargs)
 
         self.database = Database(
             self, "Database", dynamodb_billing_mode=dynamodb_billing_mode
@@ -27,18 +25,16 @@ class Stateful(cdk.Stack):
 
 
 class Stateless(cdk.Stack):
-    # pylint: disable=redefined-builtin
-    # The 'id' parameter name is CDK convention.
     def __init__(
         self,
         scope: cdk.Construct,
-        id: str,
+        id_: str,
         *,
         database: Database,
         api_lambda_reserved_concurrency: int,
         **kwargs: Any,
     ):
-        super().__init__(scope, id, **kwargs)
+        super().__init__(scope, id_, **kwargs)
 
         api = API(
             self,

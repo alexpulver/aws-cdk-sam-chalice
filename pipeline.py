@@ -10,10 +10,8 @@ from stages import PreProd
 
 
 class Pipeline(cdk.Stack):
-    # pylint: disable=redefined-builtin
-    # The 'id' parameter name is CDK convention.
-    def __init__(self, scope: cdk.Construct, id: str, **kwargs: Any):
-        super().__init__(scope, id, **kwargs)
+    def __init__(self, scope: cdk.Construct, id_: str, **kwargs: Any):
+        super().__init__(scope, id_, **kwargs)
 
         codepipeline_source = pipelines.CodePipelineSource.connection(
             "alexpulver/aws-cdk-sam-chalice",

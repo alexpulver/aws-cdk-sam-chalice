@@ -12,17 +12,15 @@ class API(cdk.Construct):
     _LAMBDA_TIMEOUT = 10
     _RUNTIME_DIR = Path(__file__).resolve().parent.joinpath("runtime")
 
-    # pylint: disable=redefined-builtin
-    # The 'id' parameter name is CDK convention.
     def __init__(
         self,
         scope: cdk.Construct,
-        id: str,
+        id_: str,
         *,
         dynamodb_table: dynamodb.Table,
         lambda_reserved_concurrency: int,
     ) -> None:
-        super().__init__(scope, id)
+        super().__init__(scope, id_)
 
         service_principal = iam.ServicePrincipal("lambda.amazonaws.com")
         # The policy is needed for writing to Amazon CloudWatch Logs
