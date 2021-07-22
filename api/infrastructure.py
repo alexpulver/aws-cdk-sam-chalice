@@ -47,8 +47,6 @@ class API(cdk.Construct):
         )
         rest_api = self.chalice.sam_template.get_resource("RestAPI")
         rest_api.tracing_enabled = True
-        # Workaround for https://github.com/aws/chalice/issues/1764
-        rest_api.add_property_override("EndpointConfiguration", {"Type": "EDGE"})
         handler_function = self.chalice.sam_template.get_resource("APIHandler")
         handler_function.add_property_override(
             "ReservedConcurrentExecutions", lambda_reserved_concurrency
