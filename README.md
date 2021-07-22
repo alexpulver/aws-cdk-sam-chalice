@@ -21,7 +21,8 @@ cd aws-cdk-sam-chalice
 ```bash
 python3.7 -m venv .venv
 source .venv/bin/activate
-pip install pip-tools==6.1.0  # [Optional] Needed to upgrade dependencies and cleanup unused packages
+# [Optional] Needed to upgrade dependencies and cleanup unused packages
+pip install pip-tools==6.1.0
 ./scripts/install-deps.sh
 ./scripts/run-tests.sh
 ```
@@ -41,7 +42,8 @@ pip-compile --upgrade api/runtime/requirements.in
 pip-compile --upgrade requirements.in
 pip-compile --upgrade requirements-dev.in
 ./scripts/install-deps.sh
-pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt  # [Optional] Cleanup unused packages
+# [Optional] Cleanup unused packages
+pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt
 ./scripts/run-tests.sh
 ```
 
