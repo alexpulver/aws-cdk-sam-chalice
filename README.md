@@ -28,9 +28,14 @@ pip install pip-tools==6.1.0
 ```
 
 ### [Optional] Upgrade AWS CDK Toolkit version
+**Note:** If you are planning to upgrade dependencies, first push the upgraded AWS CDK Toolkit version.
+This is needed for CDK Pipelines to update the AWS CDK Toolkit version used in the synth action.
+Otherwise, the synth can fail due to dependencies version being newer than the AWS CDK Toolkit version.
+
 ```bash
 vi package.json  # Update "aws-cdk" package version
 ./scripts/install-deps.sh
+./scripts/run-tests.sh
 ```
 
 ### [Optional] Upgrade dependencies (ordered by constraints)
