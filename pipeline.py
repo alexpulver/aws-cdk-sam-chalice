@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from aws_cdk import aws_codebuild as codebuild
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 from aws_cdk import pipelines
@@ -19,20 +20,22 @@ class Pipeline(cdk.Stack):
             # pylint: disable=line-too-long
             connection_arn="arn:aws:codestar-connections:eu-west-1:807650736403:connection/1f244295-871f-411f-afb1-e6ca987858b6",
         )
-        synth_commands = [
-            "pyenv local 3.7.10",
-            "./scripts/install-deps.sh",
-            "./scripts/run-tests.sh",
-            "npx cdk synth",
-        ]
-        synth_shell_step = pipelines.ShellStep(
-            "Synth", input=codepipeline_source, commands=synth_commands
+        synth_python_version = {
+            "phases": {"install": {"runtime-versions": {"python": "3.7"}}}
+        }
+        synth_codebuild_step = pipelines.CodeBuildStep(
+            "Synth",
+            input=codepipeline_source,
+            install_commands=["./scripts/install-deps.sh"],
+            commands=["./scripts/run-tests.sh", "npx cdk synth"],
+            primary_output_directory="cdk.out",
+            partial_build_spec=codebuild.BuildSpec.from_object(synth_python_version),
         )
         codepipeline = pipelines.CodePipeline(
             self,
             "CodePipeline",
             cli_version=Pipeline._get_cdk_cli_version(),
-            synth=synth_shell_step,
+            synth=synth_codebuild_step,
         )
 
         self._add_prod_stage(codepipeline)
