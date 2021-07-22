@@ -26,10 +26,10 @@ class Pipeline(cdk.Stack):
         synth_codebuild_step = pipelines.CodeBuildStep(
             "Synth",
             input=codepipeline_source,
+            partial_build_spec=codebuild.BuildSpec.from_object(synth_python_version),
             install_commands=["./scripts/install-deps.sh"],
             commands=["./scripts/run-tests.sh", "npx cdk synth"],
             primary_output_directory="cdk.out",
-            partial_build_spec=codebuild.BuildSpec.from_object(synth_python_version),
         )
         codepipeline = pipelines.CodePipeline(
             self,
