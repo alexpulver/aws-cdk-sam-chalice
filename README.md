@@ -80,8 +80,8 @@ UserManagementBackendDevStateless0E5B7E4B.RestAPIId = zx5s6bum21
 
 ## Deploy the pipeline
 **Prerequisites**
-- Fork the repository and create AWS CodeStar Connections [connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html) for it
-- Update `codepipeline_source` in `pipeline.py` with the connection, owner and repository details from previous step
+- Fork the repository and create an AWS CodeStar Connections [connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html) for it
+- Update `codepipeline_source` in `pipeline.py` with repository and connection details
 - Update `prod_stage` in `pipeline.py` with correct account and region
 - Update `Pipeline` in `app.py` with correct account and region
 
