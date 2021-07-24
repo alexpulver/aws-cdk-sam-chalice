@@ -15,4 +15,4 @@ pylint --rcfile .pylintrc "${targets[@]}"
 safety check -r api/runtime/requirements.txt -r requirements.txt -r requirements-dev.txt
 
 PYTHONPATH="${PWD}/api/runtime" \
-  coverage run --source "${PWD}" --omit "tests/*" -m unittest discover -v -s tests
+  coverage run --source "${PWD}" --omit ".venv/*,tests/*" -m unittest discover -v -s tests
