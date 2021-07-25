@@ -9,10 +9,6 @@ from cdk_chalice import Chalice
 
 
 class API(cdk.Construct):
-    _LAMBDA_MEMORY_SIZE = 128
-    _LAMBDA_TIMEOUT = 10
-    _RUNTIME_DIR = Path(__file__).resolve().parent.joinpath("runtime")
-
     def __init__(
         self,
         scope: cdk.Construct,
@@ -43,7 +39,7 @@ class API(cdk.Construct):
         self.chalice = Chalice(
             self,
             "Chalice",
-            source_dir=str(API._RUNTIME_DIR),
+            source_dir=str(Path(__file__).resolve().parent.joinpath("runtime")),
             stage_config=chalice_stage_config,
         )
         rest_api: sam.CfnApi = self.chalice.sam_template.get_resource("RestAPI")
@@ -68,8 +64,8 @@ class API(cdk.Construct):
                     "manage_iam_role": False,
                     "iam_role_arn": handler_role.role_arn,
                     "environment_variables": {"TABLE_NAME": dynamodb_table.table_name},
-                    "lambda_memory_size": API._LAMBDA_MEMORY_SIZE,
-                    "lambda_timeout": API._LAMBDA_TIMEOUT,
+                    "lambda_memory_size": 128,
+                    "lambda_timeout": 10,
                 }
             },
         }
