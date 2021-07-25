@@ -3,6 +3,7 @@ from typing import Any, Dict
 
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import aws_iam as iam
+from aws_cdk import aws_sam as sam
 from aws_cdk import core as cdk
 from cdk_chalice import Chalice
 
@@ -45,12 +46,12 @@ class API(cdk.Construct):
             source_dir=str(API._RUNTIME_DIR),
             stage_config=chalice_stage_config,
         )
-        rest_api = self.chalice.sam_template.get_resource("RestAPI")
+        rest_api: sam.CfnApi = self.chalice.sam_template.get_resource("RestAPI")
         rest_api.tracing_enabled = True
-        handler_function = self.chalice.sam_template.get_resource("APIHandler")
-        handler_function.add_property_override(
-            "ReservedConcurrentExecutions", lambda_reserved_concurrency
+        handler_function: sam.CfnFunction = self.chalice.sam_template.get_resource(
+            "APIHandler"
         )
+        handler_function.reserved_concurrent_executions = lambda_reserved_concurrency
 
         self.endpoint_url: cdk.CfnOutput = self.chalice.sam_template.get_output(
             "EndpointURL"
