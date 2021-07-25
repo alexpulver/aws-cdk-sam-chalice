@@ -25,7 +25,7 @@ class DatabaseEngineInterface(ABC):
         pass
 
 
-class DynamoDBDatabaseEngine(DatabaseEngineInterface):
+class DynamoDBEngine(DatabaseEngineInterface):
     def __init__(self, table_name: str):
         dynamodb = boto3.resource("dynamodb")
         self._table = dynamodb.Table(table_name)

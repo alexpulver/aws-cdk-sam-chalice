@@ -4,7 +4,7 @@ from chalicelib.database_engine import DatabaseEngineInterface
 
 
 class UsersDatabase:
-    def __init__(self, *, database_engine: DatabaseEngineInterface) -> None:
+    def __init__(self, *, database_engine: DatabaseEngineInterface):
         self._database_engine = database_engine
 
     def create_user(
