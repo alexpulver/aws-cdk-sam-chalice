@@ -7,8 +7,8 @@ from api.runtime.app import app
 
 
 class AppTestCase(unittest.TestCase):
-    @patch.dict("chalicelib.wrappers.os.environ", {"TABLE_NAME": "AppTestCase"})
-    @patch("chalicelib.database_engine.DynamoDBEngine.get_user")
+    @patch.dict("chalicelib.users.os.environ", {"TABLE_NAME": "AppTestCase"})
+    @patch("chalicelib.users.DynamoDBDatabase.get_user")
     def test_get_user_exists(self, mock_get_user):
         username = "john"
         user = {"username": username, "email": f"{username}@example.com"}

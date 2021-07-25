@@ -1,11 +1,12 @@
+import os
 from abc import ABC
 from abc import abstractmethod
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Type
 
 import boto3
 
 
-class DatabaseEngineInterface(ABC):
+class DatabaseInterface(ABC):
     @abstractmethod
     def create_user(
         self, username: str, user_attributes: Dict[str, str]
@@ -25,7 +26,26 @@ class DatabaseEngineInterface(ABC):
         pass
 
 
-class DynamoDBEngine(DatabaseEngineInterface):
+class Users:
+    def __init__(self, *, database: DatabaseInterface):
+        self._database = database
+
+    def create_user(
+        self, username: str, user_attributes: Dict[str, str]
+    ) -> Dict[str, str]:
+        return self._database.create_user(username, user_attributes)
+
+    def update_user(self, username: str, user_attributes: Dict[str, str]) -> Any:
+        return self._database.update_user(username, user_attributes)
+
+    def get_user(self, username: str) -> Optional[Dict[str, Any]]:
+        return self._database.get_user(username)
+
+    def delete_user(self, username: str) -> None:
+        self._database.delete_user(username)
+
+
+class DynamoDBDatabase(DatabaseInterface):
     def __init__(self, table_name: str):
         dynamodb = boto3.resource("dynamodb")
         self._table = dynamodb.Table(table_name)
@@ -61,3 +81,20 @@ class DynamoDBEngine(DatabaseEngineInterface):
 
     def delete_user(self, username: str) -> None:
         self._table.delete_item(Key={"username": username})
+
+
+class DatabaseSingletonMeta(type):
+    _instances: Dict[Type[Any], object] = {}
+
+    def __call__(cls, *args: Any, **kwargs: Any) -> object:
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
+
+
+class UsersDynamoDBDatabase(Users, metaclass=DatabaseSingletonMeta):
+    """Implement as singleton to initialize the Boto3 DynamoDB resource only once."""
+
+    def __init__(self) -> None:
+        super().__init__(database=DynamoDBDatabase(os.environ["TABLE_NAME"]))
