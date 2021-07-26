@@ -1,4 +1,5 @@
 from aws_cdk import aws_cloudwatch as cloudwatch
+from aws_cdk import aws_sam as sam
 from aws_cdk import core as cdk
 
 from api.infrastructure import API
@@ -9,7 +10,7 @@ class Monitoring(cdk.Construct):
     def __init__(self, scope: cdk.Construct, id_: str, *, database: Database, api: API):
         super().__init__(scope, id_)
 
-        apigateway = api.chalice.sam_template.get_resource("RestAPI")
+        apigateway: sam.CfnApi = api.chalice.sam_template.get_resource("RestAPI")
         apigateway_metric_dimensions = {"ApiName": cdk.Fn.ref(apigateway.logical_id)}
         apigateway_metric_count = cloudwatch.Metric(
             namespace="AWS/APIGateway",
