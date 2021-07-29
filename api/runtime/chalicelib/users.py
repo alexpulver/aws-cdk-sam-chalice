@@ -1,27 +1,25 @@
-import os
-from abc import ABC
-from abc import abstractmethod
-from typing import Any, Dict, Optional, Type
+import abc
+from typing import Any, Dict, Optional
 
 import boto3
 
 
-class DatabaseInterface(ABC):
-    @abstractmethod
+class DatabaseInterface(abc.ABC):
+    @abc.abstractmethod
     def create_user(
         self, username: str, user_attributes: Dict[str, str]
     ) -> Dict[str, str]:
         pass
 
-    @abstractmethod
+    @abc.abstractmethod
     def update_user(self, username: str, user_attributes: Dict[str, str]) -> Any:
         pass
 
-    @abstractmethod
+    @abc.abstractmethod
     def get_user(self, username: str) -> Optional[Dict[str, Any]]:
         pass
 
-    @abstractmethod
+    @abc.abstractmethod
     def delete_user(self, username: str) -> None:
         pass
 
@@ -46,9 +44,11 @@ class Users:
 
 
 class DynamoDBDatabase(DatabaseInterface):
+    _dynamodb = boto3.resource("dynamodb")
+
     def __init__(self, table_name: str):
-        dynamodb = boto3.resource("dynamodb")
-        self._table = dynamodb.Table(table_name)
+        super().__init__()
+        self._table = DynamoDBDatabase._dynamodb.Table(table_name)
 
     def create_user(
         self, username: str, user_attributes: Dict[str, str]
@@ -81,20 +81,3 @@ class DynamoDBDatabase(DatabaseInterface):
 
     def delete_user(self, username: str) -> None:
         self._table.delete_item(Key={"username": username})
-
-
-class DatabaseSingletonMeta(type):
-    _instances: Dict[Type[Any], object] = {}
-
-    def __call__(cls, *args: Any, **kwargs: Any) -> object:
-        if cls not in cls._instances:
-            instance = super().__call__(*args, **kwargs)
-            cls._instances[cls] = instance
-        return cls._instances[cls]
-
-
-class UsersDynamoDBDatabase(Users, metaclass=DatabaseSingletonMeta):
-    """Implement as singleton to initialize the Boto3 DynamoDB resource only once."""
-
-    def __init__(self) -> None:
-        super().__init__(database=DynamoDBDatabase(os.environ["TABLE_NAME"]))

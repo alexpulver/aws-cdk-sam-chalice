@@ -1,6 +1,6 @@
 from chalice import Chalice
 from chalice import Response
-from chalicelib.users import UsersDynamoDBDatabase
+from chalicelib.helpers import init_users_repository
 
 app = Chalice(app_name="API")
 
@@ -11,7 +11,7 @@ def create_user() -> Response:
     username = user_attributes["username"]
     del user_attributes["username"]
 
-    users = UsersDynamoDBDatabase()
+    users = init_users_repository()
     user = users.get_user(username)
     if user:
         return Response(f"User {username} already exists", status_code=400)
@@ -23,14 +23,14 @@ def create_user() -> Response:
 @app.route("/users/{username}", methods=["PUT"])
 def update_user(username: str) -> Response:
     user_attributes = app.current_request.json_body
-    users = UsersDynamoDBDatabase()
+    users = init_users_repository()
     updated_user = users.update_user(username, user_attributes)
     return Response(updated_user)
 
 
 @app.route("/users/{username}", methods=["GET"])
 def get_user(username: str) -> Response:
-    users = UsersDynamoDBDatabase()
+    users = init_users_repository()
     user = users.get_user(username)
     if not user:
         return Response(f"User {username} does not exist", status_code=404)
@@ -40,7 +40,7 @@ def get_user(username: str) -> Response:
 
 @app.route("/users/{username}", methods=["DELETE"])
 def delete_user(username: str) -> Response:
-    users = UsersDynamoDBDatabase()
+    users = init_users_repository()
     if not users.get_user(username):
         return Response(f"User {username} does not exist", status_code=404)
     else:

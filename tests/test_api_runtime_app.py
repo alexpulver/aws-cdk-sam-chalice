@@ -7,7 +7,7 @@ from api.runtime.app import app
 
 
 class AppTestCase(unittest.TestCase):
-    @patch.dict("chalicelib.users.os.environ", {"TABLE_NAME": "AppTestCase"})
+    @patch.dict("chalicelib.helpers.os.environ", {"TABLE_NAME": "AppTestCase"})
     @patch("chalicelib.users.DynamoDBDatabase.get_user")
     def test_get_user_exists(self, mock_get_user):
         username = "john"
@@ -21,5 +21,5 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(response.json_body, user)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
