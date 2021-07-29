@@ -1,10 +1,9 @@
 import os
 
-from chalicelib.users import DynamoDBDatabase
-from chalicelib.users import Users
+from chalicelib import users
 
 
-def init_users_repository() -> Users:
-    dynamodb_database = DynamoDBDatabase(os.environ["TABLE_NAME"])
-    users = Users(database=dynamodb_database)
-    return users
+def init_users_repository() -> users.UsersRepository:
+    dynamodb_database = users.DynamoDBDatabase(os.environ["TABLE_NAME"])
+    users_repository = users.UsersRepository(database=dynamodb_database)
+    return users_repository

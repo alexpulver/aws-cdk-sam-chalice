@@ -24,7 +24,7 @@ class DatabaseInterface(abc.ABC):
         pass
 
 
-class Users:
+class UsersRepository:
     def __init__(self, *, database: DatabaseInterface):
         self._database = database
 
