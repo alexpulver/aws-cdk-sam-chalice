@@ -1,8 +1,8 @@
 import json
+import pathlib
 import shutil
 import tempfile
 import unittest
-from pathlib import Path
 
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
@@ -14,17 +14,17 @@ from database.infrastructure import Database
 class APITestCase(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.mkdtemp(dir="/tmp")
-        cdk_out_dir = Path(self.temp_dir, "cdk.out")
+        cdk_out_dir = pathlib.Path(self.temp_dir, "cdk.out")
         cdk_out_dir.mkdir()
         self.app = cdk.App(outdir=str(cdk_out_dir))
         self.stack = cdk.Stack(self.app, "Stack")
 
     def tearDown(self) -> None:
         shutil.rmtree(self.temp_dir, ignore_errors=True)
-        chalice_config_path = Path(__file__).resolve().parent.parent.joinpath(
+        chalice_config_path = pathlib.Path(__file__).resolve().parent.parent.joinpath(
             'api/runtime/.chalice/config.json'
         )
-        with Path.open(chalice_config_path, "r+") as chalice_config_file:
+        with pathlib.Path.open(chalice_config_path, "r+") as chalice_config_file:
             chalice_config = json.load(chalice_config_file)
             del chalice_config["stages"][f"{self.stack.stack_name}/API"]
             chalice_config_file.seek(0)
