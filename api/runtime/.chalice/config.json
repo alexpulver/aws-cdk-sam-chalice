@@ -12,7 +12,9 @@
             "TABLE_NAME": "${Token[TOKEN.81]}"
           },
           "lambda_memory_size": 128,
-          "lambda_timeout": 10
+          "lambda_timeout": 10,
+          "reserved_concurrency": 1,
+          "xray": true
         }
       }
     },
@@ -26,7 +28,9 @@
             "TABLE_NAME": "${Token[TOKEN.128]}"
           },
           "lambda_memory_size": 128,
-          "lambda_timeout": 10
+          "lambda_timeout": 10,
+          "reserved_concurrency": 10,
+          "xray": true
         }
       }
     }
