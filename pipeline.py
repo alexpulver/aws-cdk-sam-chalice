@@ -1,5 +1,5 @@
 import json
-from pathlib import Path
+import pathlib
 from typing import Any
 
 from aws_cdk import aws_codebuild as codebuild
@@ -42,7 +42,9 @@ class Pipeline(cdk.Stack):
 
     @staticmethod
     def _get_cdk_cli_version() -> str:
-        package_json_path = Path(__file__).resolve().parent.joinpath("package.json")
+        package_json_path = (
+            pathlib.Path(__file__).resolve().parent.joinpath("package.json")
+        )
         with open(package_json_path) as package_json_file:
             package_json = json.load(package_json_file)
         cdk_cli_version = str(package_json["devDependencies"]["aws-cdk"])
