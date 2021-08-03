@@ -8,6 +8,7 @@ from aws_cdk import core as cdk
 from aws_cdk import pipelines
 
 import constants
+from deployment import UpdatePullRequestBuild
 from deployment import UserManagementBackend
 
 
@@ -45,6 +46,7 @@ class Pipeline(cdk.Stack):
             synth=synth_codebuild_step,
         )
 
+        self._add_update_pull_request_build_stage(codepipeline)
         self._add_prod_stage(codepipeline)
 
     @staticmethod
@@ -56,6 +58,16 @@ class Pipeline(cdk.Stack):
             package_json = json.load(package_json_file)
         cdk_cli_version = str(package_json["devDependencies"]["aws-cdk"])
         return cdk_cli_version
+
+    def _add_update_pull_request_build_stage(
+        self, codepipeline: pipelines.CodePipeline
+    ) -> None:
+        pull_request_build_stage = UpdatePullRequestBuild(
+            self,
+            f"{UserManagementBackend.__name__}-{UpdatePullRequestBuild.__name__}",
+            env=cdk.Environment(account="807650736403", region="eu-west-1"),
+        )
+        codepipeline.add_stage(pull_request_build_stage)
 
     def _add_prod_stage(self, codepipeline: pipelines.CodePipeline) -> None:
         prod_stage = UserManagementBackend(
