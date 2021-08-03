@@ -3,6 +3,7 @@ import os
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 
+from build import Build
 from deployment import UserManagementBackend
 from pipeline import Pipeline
 
@@ -18,6 +19,13 @@ UserManagementBackend(
     ),
     api_lambda_reserved_concurrency=1,
     database_dynamodb_billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
+)
+
+# Feature branch build
+Build(
+    app,
+    f"{UserManagementBackend.__name__}-Build",
+    env=cdk.Environment(account="807650736403", region="eu-west-1"),
 )
 
 # Production pipeline

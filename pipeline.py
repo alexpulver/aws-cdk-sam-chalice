@@ -7,6 +7,7 @@ from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 from aws_cdk import pipelines
 
+import constants
 from deployment import UserManagementBackend
 
 
@@ -15,20 +16,26 @@ class Pipeline(cdk.Stack):
         super().__init__(scope, id_, **kwargs)
 
         codepipeline_source = pipelines.CodePipelineSource.connection(
-            "alexpulver/aws-cdk-sam-chalice",
+            f"{constants.GITHUB_OWNER}/{constants.GITHUB_REPO}",
             "future",
-            # pylint: disable=line-too-long
-            connection_arn="arn:aws:codestar-connections:eu-west-1:807650736403:connection/1f244295-871f-411f-afb1-e6ca987858b6",
+            connection_arn=(
+                "arn:aws:codestar-connections:eu-west-1:807650736403:"
+                "connection/1f244295-871f-411f-afb1-e6ca987858b6"
+            ),
         )
         synth_python_version = {
-            "phases": {"install": {"runtime-versions": {"python": "3.7"}}}
+            "phases": {
+                "install": {
+                    "runtime-versions": constants.CODEBUILD_INSTALL_RUNTIME_VERSIONS
+                }
+            }
         }
         synth_codebuild_step = pipelines.CodeBuildStep(
             "Synth",
             input=codepipeline_source,
             partial_build_spec=codebuild.BuildSpec.from_object(synth_python_version),
-            install_commands=["./scripts/install-deps.sh"],
-            commands=["./scripts/run-tests.sh", "npx cdk synth"],
+            install_commands=constants.CODEBUILD_INSTALL_COMMANDS,
+            commands=constants.CODEBUILD_BUILD_COMMANDS,
             primary_output_directory="cdk.out",
         )
         codepipeline = pipelines.CodePipeline(
