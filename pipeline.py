@@ -7,6 +7,8 @@ from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 from aws_cdk import pipelines
 
+import constants
+from deployment import UpdatePullRequestBuild
 from deployment import UserManagementBackend
 
 
@@ -15,20 +17,26 @@ class Pipeline(cdk.Stack):
         super().__init__(scope, id_, **kwargs)
 
         codepipeline_source = pipelines.CodePipelineSource.connection(
-            "alexpulver/aws-cdk-sam-chalice",
+            f"{constants.GITHUB_OWNER}/{constants.GITHUB_REPO}",
             "future",
-            # pylint: disable=line-too-long
-            connection_arn="arn:aws:codestar-connections:eu-west-1:807650736403:connection/1f244295-871f-411f-afb1-e6ca987858b6",
+            connection_arn=(
+                "arn:aws:codestar-connections:eu-west-1:807650736403:"
+                "connection/1f244295-871f-411f-afb1-e6ca987858b6"
+            ),
         )
         synth_python_version = {
-            "phases": {"install": {"runtime-versions": {"python": "3.7"}}}
+            "phases": {
+                "install": {
+                    "runtime-versions": constants.CODEBUILD_INSTALL_RUNTIME_VERSIONS
+                }
+            }
         }
         synth_codebuild_step = pipelines.CodeBuildStep(
             "Synth",
             input=codepipeline_source,
             partial_build_spec=codebuild.BuildSpec.from_object(synth_python_version),
-            install_commands=["./scripts/install-deps.sh"],
-            commands=["./scripts/run-tests.sh", "npx cdk synth"],
+            install_commands=constants.CODEBUILD_INSTALL_COMMANDS,
+            commands=constants.CODEBUILD_BUILD_COMMANDS,
             primary_output_directory="cdk.out",
         )
         codepipeline = pipelines.CodePipeline(
@@ -38,6 +46,7 @@ class Pipeline(cdk.Stack):
             synth=synth_codebuild_step,
         )
 
+        self._add_update_pull_request_build_stage(codepipeline)
         self._add_prod_stage(codepipeline)
 
     @staticmethod
@@ -49,6 +58,16 @@ class Pipeline(cdk.Stack):
             package_json = json.load(package_json_file)
         cdk_cli_version = str(package_json["devDependencies"]["aws-cdk"])
         return cdk_cli_version
+
+    def _add_update_pull_request_build_stage(
+        self, codepipeline: pipelines.CodePipeline
+    ) -> None:
+        pull_request_build_stage = UpdatePullRequestBuild(
+            self,
+            f"{UserManagementBackend.__name__}-{UpdatePullRequestBuild.__name__}",
+            env=cdk.Environment(account="807650736403", region="eu-west-1"),
+        )
+        codepipeline.add_stage(pull_request_build_stage)
 
     def _add_prod_stage(self, codepipeline: pipelines.CodePipeline) -> None:
         prod_stage = UserManagementBackend(
