@@ -38,7 +38,7 @@ class UserManagementBackend(cdk.Stage):
         self.api_endpoint_url = api.endpoint_url
 
 
-class UpdatePullRequestBuild(cdk.Stage):
+class ContinuousBuild(cdk.Stage):
     def __init__(
         self,
         scope: cdk.Construct,
@@ -47,7 +47,7 @@ class UpdatePullRequestBuild(cdk.Stage):
     ):
         super().__init__(scope, id_, **kwargs)
 
-        pull_request_build = cdk.Stack(self, "PullRequestBuild")
+        pull_request = cdk.Stack(self, "PullRequest")
 
         webhook_filters = [
             codebuild.FilterGroup.in_event_of(
@@ -79,7 +79,7 @@ class UpdatePullRequestBuild(cdk.Stage):
             }
         )
         codebuild.Project(
-            pull_request_build,
+            pull_request,
             "Project",
             source=git_hub_source,
             build_spec=build_spec,

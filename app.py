@@ -3,6 +3,7 @@ import os
 from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 
+import constants
 from deployment import UserManagementBackend
 from pipeline import Pipeline
 
@@ -11,7 +12,7 @@ app = cdk.App()
 # Development
 UserManagementBackend(
     app,
-    f"{UserManagementBackend.__name__}-Dev",
+    f"{constants.CDK_APP_NAME}-Dev",
     env=cdk.Environment(
         account=os.environ["CDK_DEFAULT_ACCOUNT"],
         region=os.environ["CDK_DEFAULT_REGION"],
@@ -23,7 +24,7 @@ UserManagementBackend(
 # Production pipeline
 Pipeline(
     app,
-    f"{UserManagementBackend.__name__}-Pipeline",
+    f"{constants.CDK_APP_NAME}-Pipeline",
     env=cdk.Environment(account="807650736403", region="eu-west-1"),
 )
 
