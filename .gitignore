@@ -1,25 +1,12 @@
-# PyCharm files
-.idea/
+# AWS CDK
+cdk.out/
 
-# pyenv
-.python-version
-
-# macOS files
-.DS_Store
-
-# Environment
-.venv/
-node_modules/
-
-# AWS Chalice files
+# AWS Chalice
 chalice.out/
 api/runtime/.chalice/deployed/
 api/runtime/.chalice/deployments/
 
-# AWS CDK files
-cdk.out/
-
-# Byte-compiled / optimized / DLL files
+# Byte-compiled / optimized / DLL
 __pycache__/
 *.py[cod]
 *$py.class
@@ -34,3 +21,19 @@ diagram.png*
 .coverage
 coverage.xml
 htmlcov/
+
+# Dependencies
+.venv/
+node_modules/
+
+# Diagrams.net
+*.drawio
+
+# macOS
+.DS_Store
+
+# PyCharm
+.idea/
+
+# pyenv
+.python-version
