@@ -1,11 +1,12 @@
 # Example project for working with AWS CDK, AWS SAM and AWS Chalice
-This project shows how AWS CDK and AWS Chalice can be used
-together to deliver a service using CDK for building the broader service
-infrastructure, and Chalice as developer-friendly Python serverless 
-microframework.
+This project shows how AWS CDK and AWS Chalice can be used together to build 
+a component. AWS CDK is used to build the broader infrastructure, while using  
+AWS Chalice as developer-friendly Python serverless microframework.
 
-The service being built is based on Amazon API Gateway and AWS Lambda, 
-and provides basic CRUD operations for managing users in a DynamoDB table.
+The project implements a *user management backend* component that uses 
+Amazon API Gateway, AWS Lambda and Amazon DynamoDB to provide basic 
+CRUD operations for managing users. The project also includes a continuous 
+delivery pipeline.
 
 ## Create development environment
 See [Getting Started With the AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
@@ -52,7 +53,7 @@ pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt
 ./scripts/run-tests.sh
 ```
 
-## Deploy the application to development environment
+## Deploy the component to development environment
 The `UserManagementBackend-Dev` stage uses your default account and region.
 It consists of two stacks - stateful (database) and stateless (API and monitoring) 
 
@@ -79,6 +80,8 @@ UserManagementBackendDevStateless0E5B7E4B.RestAPIId = zx5s6bum21
 ```
 
 ## Deploy the pipeline
+**Note:** The pipeline will deploy continuous build configuration for pull requests
+
 **Prerequisites**
 - Fork the repository and create an AWS CodeStar Connections [connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html) for it
 - Update `codepipeline_source` in `pipeline.py` with repository and connection details
