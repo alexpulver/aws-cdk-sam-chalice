@@ -61,8 +61,8 @@ class Pipeline(cdk.Stack):
             self,
             f"{constants.CDK_APP_NAME}-ContinuousBuild",
             env=cdk.Environment(
-                account=constants.PIPELINE_CONTINUOUS_BUILD_STAGE_ACCOUNT,
-                region=constants.PIPELINE_CONTINUOUS_BUILD_STAGE_REGION,
+                account=constants.CONTINUOUS_BUILD_ACCOUNT,
+                region=constants.CONTINUOUS_BUILD_REGION,
             ),
         )
         codepipeline.add_stage(continuous_build_stage)
@@ -72,8 +72,8 @@ class Pipeline(cdk.Stack):
             self,
             f"{constants.CDK_APP_NAME}-Prod",
             env=cdk.Environment(
-                account=constants.PIPELINE_PROD_STAGE_ACCOUNT,
-                region=constants.PIPELINE_PROD_STAGE_REGION,
+                account=constants.PROD_ACCOUNT,
+                region=constants.PROD_REGION,
             ),
             api_lambda_reserved_concurrency=10,
             database_dynamodb_billing_mode=dynamodb.BillingMode.PROVISIONED,

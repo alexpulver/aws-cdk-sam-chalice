@@ -80,21 +80,18 @@ UserManagementBackendDevStateless0E5B7E4B.RestAPIId = zx5s6bum21
 ```
 
 ## Deploy the pipeline
-**Note:** The pipeline will deploy continuous build configuration for pull requests
+**Note:** The pipeline will deploy continuous build for pull requests
 
 **Prerequisites**
 - Fork the repository
-- Create an AWS CodeStar Connections [connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html)
+- Create AWS CodeStar Connections [connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html)
   for the pipeline
-- Authorize AWS CodeBuild access for the continuous build configuration
+- Authorize AWS CodeBuild access for the continuous build
   - Start creating a new project manually
   - Select GitHub as Source provider
   - Choose **Connect using OAuth** (unless already connected using OAuth)
   - Authorize access and cancel the project creation
-- Update `GITHUB_BRANCH`, `GITHUB_OWNER` and `GITHUB_REPO` in [constants.py](constants.py) with your GitHub configuration
-- Update `codepipeline_source` in [pipeline.py](pipeline.py) with your CodeStar connection ARN
-- Update `prod_stage` in [pipeline.py](pipeline.py) with your AWS account and region
-- Update `Pipeline` in [app.py](app.py) with your AWS account and region
+- Update the values in [constants.py](constants.py)
 
 ```bash
 npx cdk deploy UserManagementBackend-Pipeline
