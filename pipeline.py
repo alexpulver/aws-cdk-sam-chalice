@@ -18,7 +18,7 @@ class Pipeline(cdk.Stack):
 
         codepipeline_source = pipelines.CodePipelineSource.connection(
             f"{constants.GITHUB_OWNER}/{constants.GITHUB_REPO}",
-            constants.GITHUB_BRANCH,
+            constants.GITHUB_TRUNK_BRANCH,
             connection_arn=constants.GITHUB_CONNECTION_ARN,
         )
         synth_python_version = {

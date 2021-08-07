@@ -4,7 +4,7 @@ CDK_APP_NAME = "UserManagementBackend"
 GITHUB_CONNECTION_ARN = "arn:aws:codestar-connections:eu-west-1:807650736403:connection/1f244295-871f-411f-afb1-e6ca987858b6"
 GITHUB_OWNER = "alexpulver"
 GITHUB_REPO = "aws-cdk-sam-chalice"
-GITHUB_BRANCH = "future"
+GITHUB_TRUNK_BRANCH = "future"
 
 PIPELINE_ACCOUNT = "807650736403"
 PIPELINE_REGION = "eu-west-1"
