@@ -3,7 +3,6 @@ import pathlib
 from typing import Any
 
 from aws_cdk import aws_codebuild as codebuild
-from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 from aws_cdk import pipelines
 
@@ -60,10 +59,7 @@ class Pipeline(cdk.Stack):
         continuous_build_stage = ContinuousBuild(
             self,
             f"{constants.CDK_APP_NAME}-ContinuousBuild",
-            env=cdk.Environment(
-                account=constants.CONTINUOUS_BUILD_ACCOUNT,
-                region=constants.CONTINUOUS_BUILD_REGION,
-            ),
+            env=constants.CONTINUOUS_BUILD_ENV,
         )
         codepipeline.add_stage(continuous_build_stage)
 
@@ -71,12 +67,9 @@ class Pipeline(cdk.Stack):
         prod_stage = UserManagementBackend(
             self,
             f"{constants.CDK_APP_NAME}-Prod",
-            env=cdk.Environment(
-                account=constants.PROD_ACCOUNT,
-                region=constants.PROD_REGION,
-            ),
-            api_lambda_reserved_concurrency=10,
-            database_dynamodb_billing_mode=dynamodb.BillingMode.PROVISIONED,
+            env=constants.PROD_ENV,
+            api_lambda_reserved_concurrency=constants.PROD_API_LAMBDA_RESERVED_CONCURRENCY,
+            database_dynamodb_billing_mode=constants.PROD_DATABASE_DYNAMODB_BILLING_MODE,
         )
         api_endpoint_url_env_var = f"{constants.CDK_APP_NAME.upper()}_API_ENDPOINT_URL"
         smoke_test_commands = [f"curl ${api_endpoint_url_env_var}"]

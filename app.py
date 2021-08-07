@@ -1,6 +1,3 @@
-import os
-
-from aws_cdk import aws_dynamodb as dynamodb
 from aws_cdk import core as cdk
 
 import constants
@@ -13,21 +10,12 @@ app = cdk.App()
 UserManagementBackend(
     app,
     f"{constants.CDK_APP_NAME}-Dev",
-    env=cdk.Environment(
-        account=os.environ["CDK_DEFAULT_ACCOUNT"],
-        region=os.environ["CDK_DEFAULT_REGION"],
-    ),
-    api_lambda_reserved_concurrency=1,
-    database_dynamodb_billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
+    env=constants.DEV_ENV,
+    api_lambda_reserved_concurrency=constants.DEV_API_LAMBDA_RESERVED_CONCURRENCY,
+    database_dynamodb_billing_mode=constants.DEV_DATABASE_DYNAMODB_BILLING_MODE,
 )
 
 # Production pipeline
-Pipeline(
-    app,
-    f"{constants.CDK_APP_NAME}-Pipeline",
-    env=cdk.Environment(
-        account=constants.PIPELINE_ACCOUNT, region=constants.PIPELINE_REGION
-    ),
-)
+Pipeline(app, f"{constants.CDK_APP_NAME}-Pipeline", env=constants.PIPELINE_ENV)
 
 app.synth()
