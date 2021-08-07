@@ -18,7 +18,7 @@ class Pipeline(cdk.Stack):
 
         codepipeline_source = pipelines.CodePipelineSource.connection(
             f"{constants.GITHUB_OWNER}/{constants.GITHUB_REPO}",
-            "future",
+            constants.GITHUB_BRANCH,
             connection_arn=(
                 "arn:aws:codestar-connections:eu-west-1:807650736403:"
                 "connection/1f244295-871f-411f-afb1-e6ca987858b6"

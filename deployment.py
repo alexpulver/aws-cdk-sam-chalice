@@ -52,10 +52,10 @@ class ContinuousBuild(cdk.Stage):
         webhook_filters = [
             codebuild.FilterGroup.in_event_of(
                 codebuild.EventAction.PULL_REQUEST_CREATED
-            ).and_base_branch_is("future"),
+            ).and_base_branch_is(constants.GITHUB_BRANCH),
             codebuild.FilterGroup.in_event_of(
                 codebuild.EventAction.PULL_REQUEST_UPDATED
-            ).and_base_branch_is("future"),
+            ).and_base_branch_is(constants.GITHUB_BRANCH),
         ]
         git_hub_source = codebuild.Source.git_hub(
             owner=constants.GITHUB_OWNER,
