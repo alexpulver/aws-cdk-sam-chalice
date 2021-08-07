@@ -54,7 +54,7 @@ pip-sync api/runtime/requirements.txt requirements.txt requirements-dev.txt
 ```
 
 ## Deploy the component to development environment
-The `UserManagementBackend-Dev` stage uses your default account and region.
+The `UserManagementBackend-Dev` stage uses your default AWS account and region.
 It consists of two stacks - stateful (database) and stateless (API and monitoring) 
 
 ```bash

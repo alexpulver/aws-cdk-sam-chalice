@@ -25,7 +25,9 @@ UserManagementBackend(
 Pipeline(
     app,
     f"{constants.CDK_APP_NAME}-Pipeline",
-    env=cdk.Environment(account="807650736403", region="eu-west-1"),
+    env=cdk.Environment(
+        account=constants.PIPELINE_ACCOUNT, region=constants.PIPELINE_REGION
+    ),
 )
 
 app.synth()

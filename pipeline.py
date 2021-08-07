@@ -19,10 +19,7 @@ class Pipeline(cdk.Stack):
         codepipeline_source = pipelines.CodePipelineSource.connection(
             f"{constants.GITHUB_OWNER}/{constants.GITHUB_REPO}",
             constants.GITHUB_BRANCH,
-            connection_arn=(
-                "arn:aws:codestar-connections:eu-west-1:807650736403:"
-                "connection/1f244295-871f-411f-afb1-e6ca987858b6"
-            ),
+            connection_arn=constants.GITHUB_CONNECTION_ARN,
         )
         synth_python_version = {
             "phases": {
@@ -63,7 +60,10 @@ class Pipeline(cdk.Stack):
         continuous_build_stage = ContinuousBuild(
             self,
             f"{constants.CDK_APP_NAME}-ContinuousBuild",
-            env=cdk.Environment(account="807650736403", region="eu-west-1"),
+            env=cdk.Environment(
+                account=constants.PIPELINE_CONTINUOUS_BUILD_STAGE_ACCOUNT,
+                region=constants.PIPELINE_CONTINUOUS_BUILD_STAGE_REGION,
+            ),
         )
         codepipeline.add_stage(continuous_build_stage)
 
@@ -71,7 +71,10 @@ class Pipeline(cdk.Stack):
         prod_stage = UserManagementBackend(
             self,
             f"{constants.CDK_APP_NAME}-Prod",
-            env=cdk.Environment(account="807650736403", region="eu-west-1"),
+            env=cdk.Environment(
+                account=constants.PIPELINE_PROD_STAGE_ACCOUNT,
+                region=constants.PIPELINE_PROD_STAGE_REGION,
+            ),
             api_lambda_reserved_concurrency=10,
             database_dynamodb_billing_mode=dynamodb.BillingMode.PROVISIONED,
         )
