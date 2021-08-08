@@ -60,10 +60,7 @@ class API(cdk.Construct):
                     "manage_iam_role": False,
                     "iam_role_arn": handler_role.role_arn,
                     "environment_variables": {"TABLE_NAME": dynamodb_table.table_name},
-                    "lambda_memory_size": 128,
-                    "lambda_timeout": 10,
                     "reserved_concurrency": lambda_reserved_concurrency,
-                    "xray": True,
                 }
             },
         }
