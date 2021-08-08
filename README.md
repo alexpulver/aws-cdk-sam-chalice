@@ -1,12 +1,22 @@
 # Example project for working with AWS CDK, AWS SAM and AWS Chalice
 This project shows how AWS CDK and AWS Chalice can be used together to build 
-a component. AWS CDK is used to build the broader infrastructure, while using  
-AWS Chalice as developer-friendly Python serverless microframework.
+a workload component (as [defined](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html#introduction)
+by the AWS Well-Architected Framework). AWS CDK is used to build the broader 
+infrastructure, while using AWS Chalice as developer-friendly Python serverless microframework.
 
 The project implements a *user management backend* component that uses 
 Amazon API Gateway, AWS Lambda and Amazon DynamoDB to provide basic 
 CRUD operations for managing users. The project also includes a continuous 
 delivery pipeline.
+
+![diagram](https://user-images.githubusercontent.com/4362270/128628347-355923de-09af-4e82-bf2c-64f9496cfe95.png)
+\* Diagram generated using https://github.com/pistazie/cdk-dia
+
+## Create a new repository from aws-cdk-sam-chalice *future* branch
+This is optional for deploying the component to the development environment, but 
+**required** for deploying the pipeline.
+
+The instructions below use the aws-cdk-sam-chalice repository.
 
 ## Create development environment
 See [Getting Started With the AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html)
@@ -83,15 +93,17 @@ UserManagementBackendDevStateless0E5B7E4B.RestAPIId = zx5s6bum21
 **Note:** The pipeline will deploy continuous build for pull requests
 
 **Prerequisites**
-- Fork the repository
+- Create a new repository from aws-cdk-sam-chalice *future* branch, if you haven't done 
+  this already
 - Create AWS CodeStar Connections [connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/welcome-connections.html)
   for the pipeline
 - Authorize AWS CodeBuild access for the continuous build
   - Start creating a new project manually
   - Select GitHub as Source provider
-  - Choose **Connect using OAuth** (unless already connected using OAuth)
+  - Choose **Connect using OAuth**
   - Authorize access and cancel the project creation
 - Update the values in [constants.py](constants.py)
+- Commit and push the changes: `git commit -a -m 'Update constants' && git push`
 
 ```bash
 npx cdk deploy UserManagementBackend-Pipeline
@@ -105,28 +117,37 @@ npx cdk destroy UserManagementBackend-Pipeline
 npx cdk destroy "UserManagementBackend-Pipeline/UserManagementBackend-Prod/*"
 ```
 
+Delete AWS CodeStar Connections connection if it is no longer needed. Follow the instructions
+in [Delete a connection](https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-delete.html).
+
 ## Testing the web API
-Below are examples that show the available resources and how to use them:
+Below are examples that show the available resources and how to use them.
+
 ```bash
+endpoint_url=$(aws cloudformation describe-stacks \
+  --stack-name UserManagementBackend-Dev-Stateless \
+  --query 'Stacks[*].Outputs[?OutputKey==`EndpointURL`].OutputValue' \
+  --output text)
+
 curl \
     -H "Content-Type: application/json" \
     -X POST \
     -d '{"username":"john", "email":"john@example.com"}' \
-    https://API_ID.execute-api.REGION.amazonaws.com/v1/users
+    "${endpoint_url}/users"
 
 curl \
     -H "Content-Type: application/json" \
     -X GET \
-    https://API_ID.execute-api.REGION.amazonaws.com/v1/users/john
+    "${endpoint_url}/users/john"
 
 curl \
     -H "Content-Type: application/json" \
     -X PUT \
     -d '{"country":"US", "state":"WA"}' \
-    https://API_ID.execute-api.REGION.amazonaws.com/v1/users/john
+    "${endpoint_url}/users/john"
 
 curl \
     -H "Content-Type: application/json" \
     -X DELETE \
-    https://API_ID.execute-api.REGION.amazonaws.com/v1/users/john
+    "${endpoint_url}/users/john"
 ```
