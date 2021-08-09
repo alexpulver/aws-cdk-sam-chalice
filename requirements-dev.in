@@ -1,6 +1,7 @@
 -c requirements.txt
 bandit
 black
+cdk-nag
 coverage
 flake8
 isort
